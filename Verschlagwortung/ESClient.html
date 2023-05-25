@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-
 <head>
+    <title>GND - Verschlagwortung</title>
     <!-- <script src="Javatest.js"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
@@ -11,8 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    <title>GND Verschlagwortungstool</title>
+    
 </head>
+<body onload="aktualisiereListe()"></body>
+
 <h1 class="mdc-typography--headline4"><span id="headerText"></span></h1>
 <!-- <button >Add GND</button> -->
 
@@ -30,27 +32,35 @@
     </label>
 
     <div class="mdc-touch-target-wrapper">
-        <button onclick="getGND()" class="mdc-button mdc-button--raised">
+        <button onclick="getNewGND()" class="mdc-button mdc-button--raised">
             <div class="mdc-button__ripple"></div>
             <span class="mdc-button__touch"></span>
             <span class="mdc-button__label">GND-Eintrag hinzufügen</span>
         </button>
     </div>
 
-    <!-- <div class="mdc-touch-target-wrapper">
-        <button onclick="putFromElastic()" class="mdc-button mdc-button--raised">
-            <div class="mdc-button__ripple"></div>
-            <span class="mdc-button__touch"></span>
-            <span class="mdc-button__label">PutElastic</span>
-        </button> -->
-    <!-- </div> -->
+    
 </div>
 
-<script defer src="Javatest.js"></script>
-<script src = "itemList.js"></script>
+<div class="mdc-touch-target-wrapper">
+    <button onclick="aktualisiereListe()" class="mdc-button mdc-button--raised" id="aktualisierungsButton">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__touch"></span>
+        <span class="mdc-button__label">Aktualisieren</span>
+    </button> 
+</div>
+
+<script defer src="getGNDButton.js"></script>
+
+<div id="divList">
+    <script defer src = "itemList.js"></script>
+</div>
+
 
 
 
 <script type="text/javascript">window.mdc.autoInit();</script>
 
+
+</body>
 </html>
