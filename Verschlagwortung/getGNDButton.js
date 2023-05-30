@@ -4,6 +4,7 @@ let header = "GND";
 let header_text =`${header} Verschlagwortungsgehilfe`;
 document.getElementById('headerText').innerHTML = header_text;
 
+// var cookies = document.cookie;
 // mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button--raised'));
 // const list = new MDCList(document.querySelector('.mdc-list'));
 // const listItemRipples = list.listElements.map((listItemEl) => new MDCRipple(listItemEl));

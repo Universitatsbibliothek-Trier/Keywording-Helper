@@ -5,6 +5,7 @@
     <!-- <script src="Javatest.js"></script> -->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <link href="gnd.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 
 
@@ -50,10 +51,42 @@
     </button> 
 </div>
 
+<ul class="mdc-image-list my-image-list">
+    <li class="mdc-list-item" id="listColumn1">
+      <!-- <div class="mdc-image-list__image-aspect-container"> -->
+               <span class="column">Preferred Name</span>
+      <!-- </div> -->
+    </li>
+
+    <li class="mdc-list-item" id="listColumn2">
+        <!-- <div class="mdc-image-list__image-aspect-container"> -->
+                 <span class="column">GND-ID</span>
+
+        <!-- </div> -->
+      </li>
+      <li class="mdc-list-item" id="listColumn3">
+        <!-- <div class="mdc-image-list__image-aspect-container"> -->
+                 <span class="column">Alternative name</span>
+        <!-- </div> -->
+      </li>
+      <li class="mdc-list-item" id="listColumn4spec">
+        <!-- <div class="mdc-image-list__image-aspect-container"> -->
+                 <span class="column">Anzahl</span>
+
+        <!-- </div> -->
+      </li>
+    
+  </ul>
+
+
+
 <script defer src="getGNDButton.js"></script>
 
 <div id="divList">
     <script defer src = "itemList.js"></script>
+    <script defer src = "buttonPlus.js"></script>
+    <script defer src = "buttonMinus.js"></script>
+    <script defer src = "plusOrMinus.js"></script>
 </div>
 
 
