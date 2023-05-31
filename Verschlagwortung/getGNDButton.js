@@ -63,6 +63,7 @@ async function getGND()
     // Trier GND: 4060877-3
     // Amphitheater: 1137516623
     // Porta Nigra: 4474732-9
+    // Göthe: 118540238
 
 
 // async function putFromElastic()

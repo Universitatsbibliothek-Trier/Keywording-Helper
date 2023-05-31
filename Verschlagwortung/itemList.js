@@ -4,6 +4,7 @@ document.createElement("ul");
 
 async function aktualisiereListe()
 {
+  document.getElementById("rueckMeldung").innerHTML = "aktualisiere Liste mit GND-Einträgen..."
   // var ImageList = document.querySelector('.mdc-image-list');
   
   // ImageList.cols = 1;
@@ -99,6 +100,8 @@ async function aktualisiereListe()
     listItemAlterName.appendChild(spanAlterName);
     // spanName.id = "listElement1";
     spanAlterName.innerHTML = jsonGND.hits.hits[x]._source.jsonGND.variantName;
+    // spanAlterName.visibility = 'hidden';
+    spanAlterName.style.display = 'none';
 
     const listItemGND = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listItemGND);
@@ -109,6 +112,12 @@ async function aktualisiereListe()
     // spanGND.id = "listElement1";
     spanGND.innerHTML = jsonGND.hits.hits[x]._source.jsonGND.gndIdentifier;
 
+
+    // const listItemSep = document.createElement("hr");
+    // listItemSep.id="column1sep";
+    // listBeginning.insertAdjacentElement("afterbegin", listItemSep);
+
+
     const listItemName = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listItemName);
     listItemName.classList.add('mdc-list-item');
@@ -118,11 +127,10 @@ async function aktualisiereListe()
     // spanName.id = "listElement1";
     spanName.innerHTML = jsonGND.hits.hits[x]._source.jsonGND.preferredName;
 
-    
-    const listItemSep = document.createElement("hr");
+    document.getElementById("rueckMeldung").innerHTML ="Liste ist aktualisiert.";    
     // listItemSep.classList.add('mdc-list-item');
     // listItemSep.role = "separator";
-    listBeginning.insertAdjacentElement("afterbegin", listItemSep);
+    
 
 
   }
@@ -175,10 +183,11 @@ function createButton(listBeginning, plusOrMinusString)
   const listPlusButton = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listPlusButton);
     listPlusButton.classList.add('mdc-list-item');
-    listPlusButton.style.width = "3%";
+    listPlusButton.style.width = "2.3%";
+    listPlusButton.id="plusMinusButton";
     if (plusOrMinusString == "minus")
     {
-      listPlusButton.style.marginRight = "35%";
+      listPlusButton.style.marginRight = "25%";
     }
 
     const divContainer = document.createElement("div");
@@ -189,7 +198,6 @@ function createButton(listBeginning, plusOrMinusString)
     divContainer.insertAdjacentElement("afterbegin", buttonPlus);
     buttonPlus.classList.add('mdc-button');
     buttonPlus.classList.add('mdc-button--raised');
-    buttonPlus.id = "buttonPlus";
     buttonPlus.addEventListener("click", plusOrMinus, plusOrMinusString );
 
     const spanLabel = document.createElement("span");
