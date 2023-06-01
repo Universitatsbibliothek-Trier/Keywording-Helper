@@ -11,6 +11,8 @@ document.getElementById('headerText').innerHTML = header_text;
 
 async function getNewGND()
 {
+  // console.log("oh hi Mark");
+  document.getElementById("rueckMeldung").innerHTML = "trage GND-Entität ein..."
   await getGND();
   // await document.getElementById('aktualisierungsButton').click;
   setTimeout(aktualisiereListe,1000);
@@ -19,13 +21,21 @@ async function getNewGND()
 }
 async function getGND()
 {
+  document.getElementById("rueckMeldung").innerHTML = "trage GND-Entität ein..."
+  var gndNumber = document.getElementById("gndNumber").value;
   
-  var gndNumber = document.querySelector('.mdc-text-field').MDCTextField.value;
-  
+  console.log("test-id: " + gndNumber);
   let partURLGnd = "https://lobid.org/gnd/";  
   gndNumber = gndNumber.replace(/ /g,'');
   let URLGnd = partURLGnd + gndNumber;
-  const responseGND = await fetch(URLGnd);  
+  const responseGND = await fetch(URLGnd); 
+  if((responseGND.headers.get("Content-Type") == ("text/html; charset=UTF-8")) | (responseGND.statusText =="Not Found") )
+  {
+    document.getElementById("rueckMeldung").innerHTML = "falsche Eingabe!";
+  }
+  else{
+    document.getElementById("rueckMeldung").innerHTML = "GND-Entität gefunden, trage ein...";
+  }
 
   
   let partURL = "https://0.0.0.0:9200/gnd/_doc/";

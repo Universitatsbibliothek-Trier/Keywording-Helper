@@ -6,7 +6,7 @@ async function aktualisiereListe()
 {
   document.getElementById("rueckMeldung").innerHTML = "aktualisiere Liste mit GND-Einträgen..."
   // var ImageList = document.querySelector('.mdc-image-list');
-  
+
   // ImageList.cols = 1;
   // imageList.
 
@@ -61,31 +61,31 @@ async function aktualisiereListe()
   for (let x in jsonGND.hits.hits)
   {
     // sortierfunktion nach Anzahl einbauen
-    
+
     // const listItemSep = document.createElement("li");
     // listItemSep.classList.add('mdc-list-item');
     // listItemSep.role = "separator";
     // // listItem.insertAdjacentElement("afterbegin", listItem2);
     // listBeginning.insertAdjacentElement("afterbegin", listItemSep);
-      createButton(listBeginning, "minus");
-      createButton(listBeginning, "plus");
-     
-   
+    createButton(listBeginning, "minus");
+    createButton(listBeginning, "plus");
 
-//     <div class="mdc-touch-target-wrapper">
-//        <button onclick="aktualisiereListe()" class="mdc-button mdc-button--raised" id="aktualisierungsButton">
-//          <div class="mdc-button__ripple"></div>
-//          <span class="mdc-button__touch"></span>
-//          <span class="mdc-button__label">Aktualisieren</span>
-//        </button> 
-//     </div>
+
+
+    //     <div class="mdc-touch-target-wrapper">
+    //        <button onclick="aktualisiereListe()" class="mdc-button mdc-button--raised" id="aktualisierungsButton">
+    //          <div class="mdc-button__ripple"></div>
+    //          <span class="mdc-button__touch"></span>
+    //          <span class="mdc-button__label">Aktualisieren</span>
+    //        </button> 
+    //     </div>
 
 
 
     const listVorkommen = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listVorkommen);
     listVorkommen.classList.add('mdc-list-item');
-    listVorkommen.id="listColumn4";
+    listVorkommen.id = "listColumn4";
     const spanVorkommen = document.createElement("span");
     listVorkommen.appendChild(spanVorkommen);
     // spanName.id = "listElement1";
@@ -95,7 +95,7 @@ async function aktualisiereListe()
     const listItemAlterName = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listItemAlterName);
     listItemAlterName.classList.add('mdc-list-item');
-    listItemAlterName.id="listColumn3";
+    listItemAlterName.id = "listColumn3";
     const spanAlterName = document.createElement("span");
     listItemAlterName.appendChild(spanAlterName);
     // spanName.id = "listElement1";
@@ -106,7 +106,7 @@ async function aktualisiereListe()
     const listItemGND = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listItemGND);
     listItemGND.classList.add('mdc-list-item');
-    listItemGND.id="listColumn2";
+    listItemGND.id = "listColumn2";
     const spanGND = document.createElement("span");
     listItemGND.appendChild(spanGND);
     // spanGND.id = "listElement1";
@@ -121,16 +121,16 @@ async function aktualisiereListe()
     const listItemName = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listItemName);
     listItemName.classList.add('mdc-list-item');
-    listItemName.id="listColumn1";
+    listItemName.id = "listColumn1";
     const spanName = document.createElement("span");
     listItemName.appendChild(spanName);
     // spanName.id = "listElement1";
     spanName.innerHTML = jsonGND.hits.hits[x]._source.jsonGND.preferredName;
 
-    document.getElementById("rueckMeldung").innerHTML ="Liste ist aktualisiert.";    
+    document.getElementById("rueckMeldung").innerHTML = "Liste ist aktualisiert.";
     // listItemSep.classList.add('mdc-list-item');
     // listItemSep.role = "separator";
-    
+
 
 
   }
@@ -181,44 +181,44 @@ async function aktualisiereListe()
 function createButton(listBeginning, plusOrMinusString)
 {
   const listPlusButton = document.createElement("li");
-    listBeginning.insertAdjacentElement("afterbegin", listPlusButton);
-    listPlusButton.classList.add('mdc-list-item');
-    listPlusButton.style.width = "2.3%";
-    listPlusButton.id="plusMinusButton";
-    if (plusOrMinusString == "minus")
-    {
-      listPlusButton.style.marginRight = "25%";
-    }
+  listBeginning.insertAdjacentElement("afterbegin", listPlusButton);
+  listPlusButton.classList.add('mdc-list-item');
+  listPlusButton.style.width = "2.3%";
+  listPlusButton.id = "plusMinusButton";
+  if (plusOrMinusString == "minus")
+  {
+    listPlusButton.style.marginRight = "25%";
+  }
 
-    const divContainer = document.createElement("div");
-    listPlusButton.insertAdjacentElement("afterbegin", divContainer);
-    divContainer.classList.add('mdc-touch-target-wrapper');
+  const divContainer = document.createElement("div");
+  listPlusButton.insertAdjacentElement("afterbegin", divContainer);
+  divContainer.classList.add('mdc-touch-target-wrapper');
 
-    const buttonPlus = document.createElement("button");
-    divContainer.insertAdjacentElement("afterbegin", buttonPlus);
-    buttonPlus.classList.add('mdc-button');
-    buttonPlus.classList.add('mdc-button--raised');
-    buttonPlus.addEventListener("click", plusOrMinus, plusOrMinusString );
+  const buttonPlus = document.createElement("button");
+  divContainer.insertAdjacentElement("afterbegin", buttonPlus);
+  buttonPlus.classList.add('mdc-button');
+  buttonPlus.classList.add('mdc-button--raised');
+  buttonPlus.addEventListener("click", function () { plusOrMinus(plusOrMinusString) });
 
-    const spanLabel = document.createElement("span");
-    buttonPlus.insertAdjacentElement("afterbegin", spanLabel);
-    spanLabel.classList.add('mdc-button__label');
-    if (plusOrMinusString == "plus")
-    {
-      spanLabel.innerHTML ="+";
-    }
-    else
-    {
-      spanLabel.innerHTML ="-";
-    }
-    
+  const spanLabel = document.createElement("span");
+  buttonPlus.insertAdjacentElement("afterbegin", spanLabel);
+  spanLabel.classList.add('mdc-button__label');
+  if (plusOrMinusString == "plus")
+  {
+    spanLabel.innerHTML = "+";
+  }
+  else
+  {
+    spanLabel.innerHTML = "-";
+  }
 
-    const spanTouch = document.createElement("span");
-    buttonPlus.insertAdjacentElement("afterbegin", spanTouch);
-    spanTouch.classList.add('mdc-button__touch');
 
-    const divContainerRipple = document.createElement("div");
-    buttonPlus.insertAdjacentElement("afterbegin", divContainerRipple);
-    divContainerRipple.classList.add('mdc-button__ripple');
+  const spanTouch = document.createElement("span");
+  buttonPlus.insertAdjacentElement("afterbegin", spanTouch);
+  spanTouch.classList.add('mdc-button__touch');
+
+  const divContainerRipple = document.createElement("div");
+  buttonPlus.insertAdjacentElement("afterbegin", divContainerRipple);
+  divContainerRipple.classList.add('mdc-button__ripple');
 
 }
