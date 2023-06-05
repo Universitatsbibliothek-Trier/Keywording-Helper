@@ -101,6 +101,7 @@ async function aktualisiereListe()
     // spanName.id = "listElement1";
     spanAlterName.innerHTML = jsonGND.hits.hits[x]._source.jsonGND.variantName;
     // spanAlterName.visibility = 'hidden';
+    // to do ausklappbar nach 1 Zeile oder ca 30 Buchstaben
     spanAlterName.style.display = 'none';
 
     const listItemGND = document.createElement("li");

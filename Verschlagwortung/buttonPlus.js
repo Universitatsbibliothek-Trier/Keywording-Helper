@@ -38,7 +38,7 @@ async function buttonPlusRaise()
   );
 
   var jsonGND = await response.json();
-  // console.log(jsonGND.hits.hits[x]._source.jsonGND.gndIdentifier);
+  console.log(jsonGND._source.jsonGND.gndIdentifier);
   // const response = await fetch(partURL,
   //   {
   //     mode: 'cors',
@@ -49,6 +49,31 @@ async function buttonPlusRaise()
   //       jsonGND
   //     })
   //   }
+  // );
+  let partURLIncrement = "https://0.0.0.0:9200/gnd/_doc/JcRjd4gBqe4taWcHyi0s";
+  // var jsonGND = await responseGND.json();
+  // console.log(jsonGND.gndIdentifier);
+  // jsonGND.vorkommen = 1;
+  // var gndIdentifier = jsonGND.gndIdentifier;
+  // to do id auslesen und dann PUT!!!
+  console.log(jsonGND._vorkommen);
+  jsonGND.vorkommen = jsonGND.vorkommen + 1;
+  
+
+  // const responseIncrement = await fetch(partURLIncrement,
+  //   {
+  //     mode: 'cors',
+  //     credentials: "include",
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({
+
+  //       "query": {
+  //         "match_all": {}
+  //       }
+
+  //     })
+  //    }
   // );
 
 }
