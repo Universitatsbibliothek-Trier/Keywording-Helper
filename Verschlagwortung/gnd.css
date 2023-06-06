@@ -123,7 +123,7 @@
     border-top-color: black;
     border-top-style: solid;
 }
-#plusMinusButton
+.plusMinusButton
 {
     /* width: 12.5%; */
     padding-left: 5px;
@@ -154,12 +154,7 @@
     /* padding-bottom: 20px; */
 }
 
-#aktualisierenDiv
-{
-    /* padding-bottom: 10px; */
-    /* padding-top: 10px; */
-    /* margin-bottom: 5px; */
-}
+
 
 #headerText
 {
