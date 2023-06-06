@@ -1,0 +1,1 @@
+let basicURL= "https://0.0.0.0:9200/gnd/";

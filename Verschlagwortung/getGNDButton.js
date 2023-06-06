@@ -4,20 +4,11 @@ let header = "GND";
 let header_text =`${header} Verschlagwortungsgehilfe`;
 document.getElementById('headerText').innerHTML = header_text;
 
-// var cookies = document.cookie;
-// mdc.ripple.MDCRipple.attachTo(document.querySelector('.mdc-button--raised'));
-// const list = new MDCList(document.querySelector('.mdc-list'));
-// const listItemRipples = list.listElements.map((listItemEl) => new MDCRipple(listItemEl));
-
 async function getNewGND()
 {
-  // console.log("oh hi Mark");
   document.getElementById("rueckMeldung").innerHTML = "trage GND-Entität ein..."
   await getGND();
-  // await document.getElementById('aktualisierungsButton').click;
   setTimeout(aktualisiereListe,1000);
-  // wait(7000);
-  // aktualisiereListe();
 }
 async function getGND()
 {
@@ -36,14 +27,14 @@ async function getGND()
   else{
     document.getElementById("rueckMeldung").innerHTML = "GND-Entität gefunden, trage ein...";
   }
-
   
-  let partURL = "https://0.0.0.0:9200/gnd/_doc/";
+  let partURL = basicURL + "_doc/";
   var jsonGND = await responseGND.json();
   console.log(jsonGND.gndIdentifier);
   jsonGND.vorkommen = 1;
   var gndIdentifier = jsonGND.gndIdentifier;
 
+  // console.log(jsonGND);
   const response = await fetch(partURL, 
      {
       mode: 'cors',
