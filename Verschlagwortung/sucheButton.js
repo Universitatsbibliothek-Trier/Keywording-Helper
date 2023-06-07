@@ -1,13 +1,19 @@
 'use strict'
 
-// var ulElement = document.createElement("ul");
-// ulElement.id = "unorderedList";
+// var unorderedList = document.getElementById("unorderedList");
+// unorderedList.remove();
+// document.createElement("ul");
 var jsonGND;
 var jsonGNDsorted;
-async function aktualisiereListe()
+async function suchenListe()
 {
+  // var unorderedList = document.getElementById("unorderedList");
+  // unorderedList.remove();
   document.getElementById("rueckMeldung").innerHTML = "aktualisiere Liste mit GND-Einträgen..."
   let nodeList = document.getElementById("divList");
+  let suchEingabe = document.getElementById("searchField").value;
+
+  console.log("Eingabe ist: " + suchEingabe);
 
   if (nodeList.hasChildNodes())
   {
@@ -15,7 +21,6 @@ async function aktualisiereListe()
   }
 
   const listBeginning = document.createElement("ul");
-  listBeginning.id="unorderedList";
   nodeList.insertAdjacentElement("afterbegin", listBeginning);
   listBeginning.classList.add('mdc-image-list');
 
@@ -25,14 +30,48 @@ async function aktualisiereListe()
     {
       mode: 'cors',
       credentials: "include",
-      method: 'GET',
+      method: 'POST',
       headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        "query":
+        {
 
-      searchField
+          "bool":
+          {
+            "should":
+              [
+                {
+                  "wildcard":
+                  {
+                    "jsonGND.preferredName": suchEingabe + "*"
+
+                  }
+                },
+                {
+                  "wildcard":
+                  {
+                    "jsonGND.variantName": suchEingabe + "*"
+                  }
+
+                }
+              ]
+
+          }
+        }
+        //   "query" : { 
+        //     "match" : {
+        //       "jsonGND.preferredName" : 
+        //       suchEingabe
+
+        //     }
+
+        // }
+      })
     }
   );
 
   jsonGND = await response.json();
+  // console.log("response ist: " + jsonGND);
   jsonGNDsorted = JSON.parse(JSON.stringify(jsonGND));
   // var jsonGNDsorted = jsonGND.hits.hits.sort((jsonGNDobject1, jsonGNDobject2) => (jsonGNDobject1._source.jsonGND.vorkommen > jsonGNDobject2._source.jsonGND.vorkommen) ? 1 : (jsonGNDobject1._source.jsonGND.vorkommen < jsonGNDobject2._source.jsonGND.vorkommen) ? -1 : 0);
   let x;
