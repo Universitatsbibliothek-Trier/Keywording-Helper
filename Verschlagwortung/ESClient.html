@@ -35,11 +35,11 @@
             </span>
             <span class="mdc-notched-outline__trailing"></span>
         </span>
-        <input id="searchField" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber">
+        <input id="searchField" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber" onkeyup="keyPressed()">
     </label>
 
     <div class="mdc-touch-target-wrapper" class="uiButton">
-        <button onclick="getNewGND()" class="mdc-button mdc-button--raised" >
+        <button onclick="suchenListe()" class="mdc-button mdc-button--raised" >
             <div class="mdc-button__ripple"></div>
             <span class="mdc-button__touch"></span>
             <span class="mdc-button__label">Suchen</span>
@@ -110,9 +110,10 @@
 
 <!-- <div id="divList" style="display:flex;"> -->
 <div id="divList" >
-
+    <script defer src = "keyPressSearchField.js"></script>
     <script defer src = "configurations.js"></script>
     <script defer src = "itemList.js"></script>
+    <script defer src = "sucheButton.js"></script>
     <script defer src = "buttonPlus.js"></script>
     <script defer src = "buttonMinus.js"></script>
     <script defer src = "plusOrMinus.js"></script>

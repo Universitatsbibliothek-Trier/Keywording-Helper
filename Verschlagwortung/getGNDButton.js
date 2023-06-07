@@ -43,8 +43,6 @@ async function getGND()
       headers: { 'Content-Type': 'application/json' },
       body:  JSON.stringify( {
         jsonGND
-        //todo
-      // "anzahl":  0
      })
      }
   ); 
