@@ -15,7 +15,7 @@ async function aktualisiereListe()
   }
 
   const listBeginning = document.createElement("ul");
-  listBeginning.id="unorderedList";
+  listBeginning.id = "unorderedList";
   nodeList.insertAdjacentElement("afterbegin", listBeginning);
   listBeginning.classList.add('mdc-image-list');
 
@@ -78,11 +78,94 @@ async function aktualisiereListe()
     listItemAlterName.classList.add('mdc-list-item');
     listItemAlterName.id = "listColumn3";
     const spanAlterName = document.createElement("span");
+    spanAlterName.id=jsonGNDsorted.hits.hits[z]._id;
     listItemAlterName.appendChild(spanAlterName);
-    spanAlterName.innerHTML = jsonGNDsorted.hits.hits[z]._source.jsonGND.variantName;
+    var variantNames = jsonGNDsorted.hits.hits[z]._source.jsonGND.variantName;
+    // console.log("konsole");
+    spanAlterName.addEventListener("click", function (){showAllVariantNames(variantNames)});
+ 
+    if(!(variantNames === undefined))
+    {
+      console.log("Variantennamenlänge: " + variantNames.toString().length);
+      console.log("ist nicht undefined");
+    }
     // spanAlterName.visibility = 'hidden';
-    // to do ausklappbar nach 1 Zeile oder ca 30 Buchstaben
-    spanAlterName.style.display = 'none';
+    var variantNamesString = "";
+    if(((!(variantNames === undefined))) && ((variantNames.toString()).length >50))
+    {
+      let y = 0;
+      for(; y < variantNames.length; y++)
+      {
+        // console.log("y ist: " + y);
+        if(y == 0)
+        {
+          variantNamesString = variantNamesString + variantNames[y];
+        }
+        else{
+          variantNamesString = variantNamesString + ";"  + variantNames[y];
+        }
+        
+        if(variantNamesString.length > 50 && (y<variantNames.length) )
+        {
+          // variantNamesString = variantNamesString - variantNamePart;
+          spanAlterName.innerHTML = variantNamesString + " ...";
+          break;
+          // console.log("variantNamesString ist: " + variantNamePart);
+        }
+        else if ((variantNamesString.length > 50) && (y == variantNames.length-1))
+        {
+          spanAlterName.innerHTML = variantNamesString;
+          break;
+          // console.log("variantNamesString ist: " + variantNamePart);
+        
+        }
+        // console.log("variantNamesString ist: " + variantNamePart);
+        spanAlterName.innerHTML = variantNamesString;
+      }
+
+    }
+    else{
+      spanAlterName.innerHTML = variantNames;
+    }
+    // spanAlterName.style.display = 'none';
+    
+
+
+    const listCopyButton = document.createElement("li");
+    listBeginning.insertAdjacentElement("afterbegin", listCopyButton);
+    listCopyButton.classList.add('mdc-list-item');
+    listCopyButton.classList.add("copyButton");
+    listCopyButton.style.width = "2.5%";
+    var gndID = jsonGNDsorted.hits.hits[z]._source.jsonGND.gndIdentifier;
+    var gndIDUri = "https://d-nb.info/gnd/" + gndID;
+    // listCopyButton.id = gndIDUri;
+    listCopyButton.style.minWidth = "3%";
+    const divContainerCopy = document.createElement("div");
+    listCopyButton.insertAdjacentElement("afterbegin", divContainerCopy);
+    divContainerCopy.classList.add('mdc-touch-target-wrapper');
+    const copyButton = document.createElement("button");
+    divContainerCopy.insertAdjacentElement("afterbegin", copyButton);
+    copyButton.classList.add('mdc-button');
+    copyButton.classList.add('mdc-button--raised');
+    copyButton.addEventListener("click", function () { copyToClipboard() });
+
+    const spanCopyLabel = document.createElement("span");
+    copyButton.insertAdjacentElement("afterbegin", spanCopyLabel);
+    // spanCopyLabel.id = jsonGNDsorted.hits.hits[x]._id;
+    spanCopyLabel.classList.add('mdc-button__label');
+    spanCopyLabel.innerHTML = "<img src=\"copy-xxl.png\" class=\"copyImage\" id=" + gndIDUri + ">";
+
+    const spanTouchCopy = document.createElement("span");
+    copyButton.insertAdjacentElement("afterbegin", spanTouchCopy);
+    spanTouchCopy.classList.add('mdc-button__touch');
+    spanTouchCopy.id = gndIDUri;
+
+    const divContainerRippleCopy = document.createElement("div");
+    copyButton.insertAdjacentElement("afterbegin", divContainerRippleCopy);
+    divContainerRippleCopy.classList.add('mdc-button__ripple');
+
+
+
 
     const listItemGND = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listItemGND);
@@ -90,7 +173,10 @@ async function aktualisiereListe()
     listItemGND.id = "listColumn2";
     const spanGND = document.createElement("span");
     listItemGND.appendChild(spanGND);
-    spanGND.innerHTML = jsonGNDsorted.hits.hits[z]._source.jsonGND.gndIdentifier;
+
+    spanGND.innerHTML = gndIDUri;
+
+
 
     const listItemName = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listItemName);
@@ -100,7 +186,7 @@ async function aktualisiereListe()
     listItemName.appendChild(spanName);
     spanName.innerHTML = jsonGNDsorted.hits.hits[z]._source.jsonGND.preferredName;
     z = z - 1;
-    document.getElementById("rueckMeldung").innerHTML = "Liste ist aktualisiert.";
+    document.getElementById("rueckMeldung").innerHTML = "Liste ist aktuell.";
   }
 }
 
@@ -112,12 +198,14 @@ function createButton(listBeginning, plusOrMinusString, x)
   listBeginning.insertAdjacentElement("afterbegin", listPlusButton);
   listPlusButton.classList.add('mdc-list-item');
   listPlusButton.classList.add("plusMinusButton");
-  listPlusButton.style.width = "2.3%";
+  listPlusButton.style.width = "2.5%";
   // console.log("jsonGNDsorted in createButtons: " + jsonGNDsorted.hits.hits.length);
   listPlusButton.id = jsonGNDsorted.hits.hits[x]._id;
+  listPlusButton.style.minWidth = "3%";
   if (plusOrMinusString == "minus")
   {
-    listPlusButton.style.marginRight = "25%";
+    listPlusButton.style.marginRight = "14%";
+    // listPlusButton.style.minWidth = "14%";
   }
 
   const divContainer = document.createElement("div");
