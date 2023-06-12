@@ -13,7 +13,7 @@ async function suchenListe()
   let nodeList = document.getElementById("divList");
   let suchEingabe = document.getElementById("searchField").value;
 
-  console.log("Eingabe ist: " + suchEingabe);
+  // console.log("Eingabe ist: " + suchEingabe);
 
   if (nodeList.hasChildNodes())
   {
@@ -58,14 +58,6 @@ async function suchenListe()
 
           }
         }
-        //   "query" : { 
-        //     "match" : {
-        //       "jsonGND.preferredName" : 
-        //       suchEingabe
-
-        //     }
-
-        // }
       })
     }
   );
@@ -101,8 +93,8 @@ async function suchenListe()
   for (let x in jsonGNDsorted.hits.hits)
   {
     // sortierfunktion nach Anzahl einbauen
-    createButton(listBeginning, "minus", z);
-    createButton(listBeginning, "plus", z);
+    createButtonSuche(listBeginning, "minus", z);
+    createButtonSuche(listBeginning, "plus", z);
 
     const listVorkommen = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listVorkommen);
@@ -143,7 +135,7 @@ async function suchenListe()
   }
 }
 
-function createButton(listBeginning, plusOrMinusString, x)
+function createButtonSuche(listBeginning, plusOrMinusString, x)
 {
   // x = parseInt(x);
   // console.log(x);
@@ -153,10 +145,11 @@ function createButton(listBeginning, plusOrMinusString, x)
   listPlusButton.classList.add("plusMinusButton");
   listPlusButton.style.width = "2.3%";
   // console.log("jsonGNDsorted in createButtons: " + jsonGNDsorted.hits.hits.length);
+  listPlusButton.style.minWidth = "3%";
   listPlusButton.id = jsonGNDsorted.hits.hits[x]._id;
   if (plusOrMinusString == "minus")
   {
-    listPlusButton.style.marginRight = "25%";
+    listPlusButton.style.marginRight = "14%";
   }
 
   const divContainer = document.createElement("div");

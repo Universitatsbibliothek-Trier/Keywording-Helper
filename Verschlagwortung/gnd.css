@@ -10,7 +10,7 @@
 {
     padding-top: 8px;
     font-size: larger;
-    width: 8%;
+    width: 12%;
     margin-bottom: 3px;
 }
 
@@ -18,9 +18,9 @@
 {
     padding-top: 8px;
     font-size: larger;
-    width: 35%;
+    width: 30%;
     margin-bottom: 3px;
-    margin-left: -1px;
+    margin-left: 7%;
 }
 #listColumn4spec
 {
@@ -62,7 +62,7 @@
 {
     padding-top: 8px;
     font-size: larger;
-    width: 8%;
+    width: 15%;
     padding-bottom: 8px;
     border-top-width: 2px;
     border-top-color: black;
@@ -76,7 +76,7 @@
 {
     padding-top: 8px;
     font-size: larger;
-    width: 35%;
+    width: 30%;
     padding-bottom: 8px;
     margin-left: -1px;
     border-top-width: 2px;
@@ -134,9 +134,20 @@
     border-top-style: solid;
 }
 
+.copyButton
+{
+    /* width: 12.5%; */
+    padding-left: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-top-width: 2px;
+    border-top-color: black;
+    border-top-style: solid;
+}
+
 #eintragLabel
 {
-    width:10%;
+    width:16%;
     /* padding-bottom: 5px; */
     margin-left: 5%;
     /* padding-right: 30%; */
@@ -170,6 +181,7 @@
 
 #gndNumber
 {
+    /* width:20%; */
     font-size: 22px;
 }
 
@@ -188,4 +200,10 @@
 {
     font-size: 20px;
     margin-left: 20px;
+}
+.copyImage
+{
+    margin-top: 2px;
+    width: 20px;
+    height: 20px;
 }

@@ -1,7 +1,7 @@
 'use strict'
 
 let header = "GND";
-let header_text =`${header} Verschlagwortungsgehilfe`;
+let header_text =`${header}-Helferlein`;
 document.getElementById('headerText').innerHTML = header_text;
 
 async function getNewGND()
@@ -13,12 +13,14 @@ async function getNewGND()
 async function getGND()
 {
   document.getElementById("rueckMeldung").innerHTML = "trage GND-Entität ein..."
-  var gndNumber = document.getElementById("gndNumber").value;
-  
-  console.log("test-id: " + gndNumber);
+  var gndURI = document.getElementById("gndNumber").value;
+  var gndURIClean = gndURI.replace(/ /g,'');
+  // https://d-nb.info/gnd/4060877-3
+  var gndID = gndURIClean.substr(22, gndURIClean.length);
+  // console.log("gndID abgeschnitten: " + gndID);
   let partURLGnd = "https://lobid.org/gnd/";  
-  gndNumber = gndNumber.replace(/ /g,'');
-  let URLGnd = partURLGnd + gndNumber;
+  
+  let URLGnd = partURLGnd + gndID;
   const responseGND = await fetch(URLGnd); 
   if((responseGND.headers.get("Content-Type") == ("text/html; charset=UTF-8")) | (responseGND.statusText =="Not Found") )
   {
@@ -30,7 +32,7 @@ async function getGND()
   
   let partURL = basicURL + "_doc/";
   var jsonGND = await responseGND.json();
-  console.log(jsonGND.gndIdentifier);
+  // console.log(jsonGND.gndIdentifier);
   jsonGND.vorkommen = 1;
   var gndIdentifier = jsonGND.gndIdentifier;
 
