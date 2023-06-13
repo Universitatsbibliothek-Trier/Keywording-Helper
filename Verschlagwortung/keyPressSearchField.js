@@ -10,6 +10,10 @@ async function keyPressed()
   {
     await suchenListe();
   }
+  else if(eingabe.length < 1)
+  {
+    aktualisiereListe();
+  }
 
   
 }

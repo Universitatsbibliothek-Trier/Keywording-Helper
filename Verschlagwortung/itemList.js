@@ -77,12 +77,17 @@ async function aktualisiereListe()
     listBeginning.insertAdjacentElement("afterbegin", listItemAlterName);
     listItemAlterName.classList.add('mdc-list-item');
     listItemAlterName.id = "listColumn3";
-    const spanAlterName = document.createElement("span");
+    var spanAlterName = document.createElement("span");
     spanAlterName.id=jsonGNDsorted.hits.hits[z]._id;
     listItemAlterName.appendChild(spanAlterName);
     var variantNames = jsonGNDsorted.hits.hits[z]._source.jsonGND.variantName;
-    // console.log("konsole");
-    spanAlterName.addEventListener("click", function (){showAllVariantNames(variantNames)});
+    // console.log("variantNames: " + variantNames);
+    spanAlterName.variantNamesAttr = variantNames;
+    spanAlterName.clicked = "false";
+    // console.log("z ist: " + z);
+    spanAlterName.addEventListener("click", function () { showAllVariantNames() });
+    // spanAlterName.addEventListener("click", function (){showAllVariantNames(variantNames)});
+    // buttonPlus.addEventListener("click", function () { plusOrMinus(plusOrMinusString) });
  
     if(!(variantNames === undefined))
     {
@@ -108,7 +113,8 @@ async function aktualisiereListe()
         if(variantNamesString.length > 50 && (y<variantNames.length) )
         {
           // variantNamesString = variantNamesString - variantNamePart;
-          spanAlterName.innerHTML = variantNamesString + " ...";
+          spanAlterName.innerHTML = variantNamesString + " +";
+          spanAlterName.variantNamesString = variantNamesString;
           break;
           // console.log("variantNamesString ist: " + variantNamePart);
         }
@@ -121,11 +127,17 @@ async function aktualisiereListe()
         }
         // console.log("variantNamesString ist: " + variantNamePart);
         spanAlterName.innerHTML = variantNamesString;
+
+        
       }
 
     }
     else{
       spanAlterName.innerHTML = variantNames;
+      spanAlterName.variantNamesString = variantNames;
+      spanAlterName.variantNames = variantNames;
+      // console.log("remove eventlistener");
+      // spanAlterName.removeEventListener("click", function () { showAllVariantNames() });
     }
     // spanAlterName.style.display = 'none';
     
