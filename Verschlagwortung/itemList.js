@@ -78,70 +78,117 @@ async function aktualisiereListe()
     listItemAlterName.classList.add('mdc-list-item');
     listItemAlterName.id = "listColumn3";
     var spanAlterName = document.createElement("span");
-    spanAlterName.id=jsonGNDsorted.hits.hits[z]._id;
+    spanAlterName.id = jsonGNDsorted.hits.hits[z]._id;
     listItemAlterName.appendChild(spanAlterName);
     var variantNames = jsonGNDsorted.hits.hits[z]._source.jsonGND.variantName;
     // console.log("variantNames: " + variantNames);
-    spanAlterName.variantNamesAttr = variantNames;
+
     spanAlterName.clicked = "false";
     // console.log("z ist: " + z);
     spanAlterName.addEventListener("click", function () { showAllVariantNames() });
     // spanAlterName.addEventListener("click", function (){showAllVariantNames(variantNames)});
     // buttonPlus.addEventListener("click", function () { plusOrMinus(plusOrMinusString) });
- 
-    if(!(variantNames === undefined))
+
+    var variantNamesStringSemiColon = "";
+    let x = 0;
+    if (!(variantNames === undefined))
     {
-      console.log("Variantennamenlänge: " + variantNames.toString().length);
-      console.log("ist nicht undefined");
+      for (; x < variantNames.length; x++)
+      {
+        if (x == 0)
+        {
+          variantNamesStringSemiColon = variantNamesStringSemiColon + variantNames[x];
+        }
+        else
+        {
+          variantNamesStringSemiColon = variantNamesStringSemiColon + "; " + variantNames[x]
+        }
+
+      }
     }
+    spanAlterName.variantNamesAttr = variantNamesStringSemiColon;
+    // for (; x < variantNames.length; x++)
+    // {
+    //   variantNamesStringSemiColon = variantNamesStringSemiColon + variantNames[x];
+    // }
+    // if(!(variantNames === undefined))
+    // {
+    //   console.log("Variantennamenlänge: " + variantNames.toString().length);
+    //   console.log("ist nicht undefined");
+    // }
     // spanAlterName.visibility = 'hidden';
+    var expandButton = document.createElement("button");
+    var expandButtonSpan = document.createElement("span");
     var variantNamesString = "";
-    if(((!(variantNames === undefined))) && ((variantNames.toString()).length >50))
+    if (((!(variantNames === undefined))) && ((variantNames.toString()).length > 50))
     {
       let y = 0;
-      for(; y < variantNames.length; y++)
+      for (; y < variantNames.length; y++)
       {
         // console.log("y ist: " + y);
-        if(y == 0)
+        if (y == 0)
         {
           variantNamesString = variantNamesString + variantNames[y];
         }
-        else{
-          variantNamesString = variantNamesString + ";"  + variantNames[y];
+        else
+        {
+          variantNamesString = variantNamesString + "; " + variantNames[y];
         }
-        
-        if(variantNamesString.length > 50 && (y<variantNames.length) )
+
+        if (variantNamesString.length > 50 && (y < variantNames.length))
         {
           // variantNamesString = variantNamesString - variantNamePart;
-          spanAlterName.innerHTML = variantNamesString + " +";
+          spanAlterName.innerHTML = variantNamesString;
+          spanAlterName.insertAdjacentElement("afterend", expandButton);
+          expandButton.classList.add('mdc-fab--mini');
+          expandButton.classList.add('mdc-fab');
+
+          
+          expandButton.insertAdjacentElement("afterbegin", expandButtonSpan);
+          expandButtonSpan.classList.add('material-icons');
+          expandButtonSpan.classList.add('mdc-fab__icon');
+          expandButtonSpan.innerHTML = "add";
+          // expandButtonSpan.id = "expandButton";
+          expandButton.id="expandButton";
+          
+          // expandButton.classList.add('mdc-fab mdc-fab--mini');
+
           spanAlterName.variantNamesString = variantNamesString;
+          expandButton.variantNamesString = variantNamesString;
+          expandButtonSpan.variantNamesString = variantNamesString;
           break;
           // console.log("variantNamesString ist: " + variantNamePart);
         }
-        else if ((variantNamesString.length > 50) && (y == variantNames.length-1))
+        else if ((variantNamesString.length > 50) && (y == variantNames.length - 1))
         {
           spanAlterName.innerHTML = variantNamesString;
           break;
           // console.log("variantNamesString ist: " + variantNamePart);
-        
+
         }
         // console.log("variantNamesString ist: " + variantNamePart);
         spanAlterName.innerHTML = variantNamesString;
 
-        
+
       }
 
     }
-    else{
-      spanAlterName.innerHTML = variantNames;
-      spanAlterName.variantNamesString = variantNames;
-      spanAlterName.variantNames = variantNames;
+    else
+    {
+      spanAlterName.innerHTML = variantNamesStringSemiColon;
+      spanAlterName.variantNamesString = variantNamesStringSemiColon;
+      spanAlterName.variantNames = variantNamesStringSemiColon;
+
+      expandButton.variantNamesString = variantNamesStringSemiColon;
+      expandButton.variantNames = variantNamesStringSemiColon;
+      expandButtonSpan.variantNamesString = variantNamesStringSemiColon;
+      expandButtonSpan.variantNames = variantNamesStringSemiColon;
       // console.log("remove eventlistener");
       // spanAlterName.removeEventListener("click", function () { showAllVariantNames() });
     }
     // spanAlterName.style.display = 'none';
-    
 
+    expandButton.addEventListener("click", function () { showAllVariantNames() });
 
     const listCopyButton = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listCopyButton);
