@@ -207,3 +207,9 @@
     width: 20px;
     height: 20px;
 }
+#expandButton
+{
+    margin-top: -4px;
+    width: 5%;
+    height: 30px;
+}

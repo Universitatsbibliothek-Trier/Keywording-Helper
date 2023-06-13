@@ -24,7 +24,7 @@ async function showAllVariantNames()
       event.target.innerHTML = event.target.variantNamesString;
     }
     else{
-      event.target.innerHTML = event.target.variantNamesString + " + ";
+      event.target.innerHTML = event.target.variantNamesString;
     }
 
   }
