@@ -18,7 +18,7 @@
 {
     padding-top: 8px;
     font-size: larger;
-    width: 30%;
+    width: 33%;
     margin-bottom: 3px;
     margin-left: 7%;
 }
@@ -38,30 +38,31 @@
 
 .mdc-list-item
 {
-    font-size: larger;
-    padding-bottom: -30px;
-    height: 100%;
+    /* font-size: large; */
+    /* padding-bottom: -20px; */
+    /* height: 50%; */
 }
 
 
 #listColumn1
 {
     padding-top: 8px;
-    font-size: larger;
+    font-size: large;
     width: 13%;
-    padding-bottom: 8px;
+    /* padding-bottom: 8px; */
     border-top-width: 2px;
     border-top-color: black;
     border-top-style: solid;
     border-right-width: 2px;
     border-right-color: black;
     border-right-style: solid;
+    /* height: 5px;  */
 }
 
 #listColumn2
 {
     padding-top: 8px;
-    font-size: larger;
+    font-size: large;
     width: 15%;
     padding-bottom: 8px;
     border-top-width: 2px;
@@ -75,16 +76,16 @@
 #listColumn3
 {
     padding-top: 8px;
-    font-size: larger;
+    font-size: large;
     width: 30%;
     padding-bottom: 8px;
     margin-left: -1px;
     border-top-width: 2px;
     border-top-color: black;
     border-top-style: solid;
-    border-right-width: 2px;
+    /* border-right-width: 2px;
     border-right-color: black;
-    border-right-style: solid;
+    border-right-style: solid; */
     border-left-width: 2px;
     border-left-color: black;
     border-left-style: solid;
@@ -93,19 +94,22 @@
 #listColumn4
 {
     padding-top: 8px;
-    font-size: larger;
+    font-size: large;
     width: 2%;
     padding-bottom: 8px;
     margin-left: -1px;
     border-top-width: 2px;
     border-top-color: black;
     border-top-style: solid;
+    border-left-width: 2px;
+    border-left-color: black;
+    border-left-style: solid; 
 
 }
 #listColumn5
 {
     padding-top: 8px;
-    font-size: larger;
+    font-size: large;
     width: 1.5%;
     padding-bottom: 8px;
     border-top-width: 2px;
@@ -116,7 +120,7 @@
 #listColumn6
 {
     padding-top: 8px;
-    font-size: larger;
+    font-size: large;
     width: 2.5%;
     padding-bottom: 8px;
     border-top-width: 2px;
@@ -207,9 +211,36 @@
     width: 20px;
     height: 20px;
 }
-#expandButton
+.expandButton
 {
-    margin-top: -4px;
-    width: 5%;
-    height: 30px;
+    /* margin-top: 5px;
+    width: 1.6%;
+    height: 30px; */
+
+
+    /* align-tracks: right; */
+    /* position: inherit; */
+}
+.buttonSpan
+{
+    
+    width: 1000px;
+    height: 300px;
+    /* border-top-width: 2px;
+    border-top-color: black;
+    border-top-style: solid; */
+    /* align-self: flex-end; */
+}
+#expandButtonItem
+{
+    padding-top: 1px;
+    /* margin-left: -12px; */
+    width: 1.8%;
+    /* height: 3px;  */
+    border-top-width: 2px;
+    border-top-color: black;
+    border-top-style: solid; 
+    /* border-right-width: 2px;
+    border-right-color: black;
+    border-right-style: solid;  */
 }
