@@ -74,14 +74,14 @@ async function aktualisiereListe()
     spanVorkommen.innerHTML = jsonGNDsorted.hits.hits[z]._source.jsonGND.vorkommen;
 
     const listItemAlterName = document.createElement("li");
-    listBeginning.insertAdjacentElement("afterbegin", listItemAlterName);
+
     listItemAlterName.classList.add('mdc-list-item');
     listItemAlterName.id = "listColumn3";
     var spanAlterName = document.createElement("span");
-    spanAlterName.id = jsonGNDsorted.hits.hits[z]._id;
+    spanAlterName.id = "span" + jsonGNDsorted.hits.hits[z]._id;
     listItemAlterName.appendChild(spanAlterName);
     var variantNames = jsonGNDsorted.hits.hits[z]._source.jsonGND.variantName;
-    // console.log("variantNames: " + variantNames);
+    // console.log("spanAlterNameid ist: " + spanAlterName.id );
 
     spanAlterName.clicked = "false";
     // console.log("z ist: " + z);
@@ -139,7 +139,11 @@ async function aktualisiereListe()
         {
           // variantNamesString = variantNamesString - variantNamePart;
           spanAlterName.innerHTML = variantNamesString;
-          spanAlterName.insertAdjacentElement("afterend", expandButton);
+          const listItemAlterNameButton = document.createElement("li");
+          listItemAlterNameButton.classList.add('mdc-list-item');
+          listItemAlterNameButton.id = "expandButtonItem";
+          listItemAlterNameButton.insertAdjacentElement("afterbegin", expandButton);
+          listBeginning.insertAdjacentElement("afterbegin", listItemAlterNameButton);
           expandButton.classList.add('mdc-fab--mini');
           expandButton.classList.add('mdc-fab');
 
@@ -149,7 +153,9 @@ async function aktualisiereListe()
           expandButtonSpan.classList.add('mdc-fab__icon');
           expandButtonSpan.innerHTML = "add";
           // expandButtonSpan.id = "expandButton";
-          expandButton.id="expandButton";
+          // expandButton.class="expandButton";
+          expandButton.classList.add("expandButton");
+          expandButton.id="es" + jsonGNDsorted.hits.hits[z]._id;
           
           // expandButton.classList.add('mdc-fab mdc-fab--mini');
 
@@ -178,7 +184,7 @@ async function aktualisiereListe()
       spanAlterName.innerHTML = variantNamesStringSemiColon;
       spanAlterName.variantNamesString = variantNamesStringSemiColon;
       spanAlterName.variantNames = variantNamesStringSemiColon;
-
+      listItemAlterName.style.width = "33.2%";
       expandButton.variantNamesString = variantNamesStringSemiColon;
       expandButton.variantNames = variantNamesStringSemiColon;
       expandButtonSpan.variantNamesString = variantNamesStringSemiColon;
@@ -186,9 +192,21 @@ async function aktualisiereListe()
       // console.log("remove eventlistener");
       // spanAlterName.removeEventListener("click", function () { showAllVariantNames() });
     }
-    // spanAlterName.style.display = 'none';
 
-    expandButton.addEventListener("click", function () { showAllVariantNames() });
+
+    // spanAlterName.style.display = 'none';
+    expandButton.clicked = "false";
+    // expandButton.esID = "es" + jsonGNDsorted.hits.hits[z]._id;
+    console.log("expandButtonID ist: " + expandButton.esID);
+    expandButtonSpan.clicked = "false";
+    expandButton.classList.add("expandButton");
+    expandButtonSpan.classList.add("buttonSpan");
+    // expandButtonSpan.esID = "spanes" + jsonGNDsorted.hits.hits[z]._id;
+    // expandButton.addEventListener("click", function () { showAllVariantButton() });
+    expandButtonSpan.id = "spanes" + jsonGNDsorted.hits.hits[z]._id;
+    expandButtonSpan.addEventListener("click", function () { showAllVariantSpan() });
+
+    listBeginning.insertAdjacentElement("afterbegin", listItemAlterName);
 
     const listCopyButton = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listCopyButton);
