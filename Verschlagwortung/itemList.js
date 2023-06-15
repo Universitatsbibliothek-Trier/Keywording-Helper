@@ -28,11 +28,12 @@ async function aktualisiereListe()
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
 
-      searchField
+      // searchField
     }
   );
 
   jsonGND = await response.json();
+  console.log("jsonGND ist: " + jsonGND);
   jsonGNDsorted = JSON.parse(JSON.stringify(jsonGND));
   // var jsonGNDsorted = jsonGND.hits.hits.sort((jsonGNDobject1, jsonGNDobject2) => (jsonGNDobject1._source.jsonGND.vorkommen > jsonGNDobject2._source.jsonGND.vorkommen) ? 1 : (jsonGNDobject1._source.jsonGND.vorkommen < jsonGNDobject2._source.jsonGND.vorkommen) ? -1 : 0);
   let x;
@@ -85,7 +86,7 @@ async function aktualisiereListe()
 
     spanAlterName.clicked = "false";
     // console.log("z ist: " + z);
-    spanAlterName.addEventListener("click", function () { showAllVariantNames() });
+    
     // spanAlterName.addEventListener("click", function (){showAllVariantNames(variantNames)});
     // buttonPlus.addEventListener("click", function () { plusOrMinus(plusOrMinusString) });
 
@@ -120,7 +121,7 @@ async function aktualisiereListe()
     var expandButton = document.createElement("button");
     var expandButtonSpan = document.createElement("span");
     var variantNamesString = "";
-    if (((!(variantNames === undefined))) && ((variantNames.toString()).length > 50))
+    if (((!(variantNames === undefined))) && ((variantNames.toString()).length > 55))
     {
       let y = 0;
       for (; y < variantNames.length; y++)
@@ -162,6 +163,8 @@ async function aktualisiereListe()
           spanAlterName.variantNamesString = variantNamesString;
           expandButton.variantNamesString = variantNamesString;
           expandButtonSpan.variantNamesString = variantNamesString;
+          expandButtonSpan.addEventListener("click", function () { showAllVariantSpan() });
+          spanAlterName.addEventListener("click", function () { showAllVariantNames() });
           break;
           // console.log("variantNamesString ist: " + variantNamePart);
         }
@@ -204,7 +207,7 @@ async function aktualisiereListe()
     // expandButtonSpan.esID = "spanes" + jsonGNDsorted.hits.hits[z]._id;
     // expandButton.addEventListener("click", function () { showAllVariantButton() });
     expandButtonSpan.id = "spanes" + jsonGNDsorted.hits.hits[z]._id;
-    expandButtonSpan.addEventListener("click", function () { showAllVariantSpan() });
+
 
     listBeginning.insertAdjacentElement("afterbegin", listItemAlterName);
 
