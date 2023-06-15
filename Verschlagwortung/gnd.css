@@ -244,3 +244,44 @@
     border-right-color: black;
     border-right-style: solid;  */
 }
+
+#pasteButton
+{
+    width: 2.5%;
+    padding-left: 15px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    min-width: "3%";
+    margin-bottom: 10px;
+
+}
+#pasteButtonDiv
+{
+
+    padding-bottom: 113px;
+    margin-bottom: 10px;
+
+}
+
+#eintragButton
+{
+    /* width: 2.5%; */
+    /* padding-left: 15px; */
+    /* padding-top: 3px; */
+    /* padding-bottom: 3px; */
+    /* min-width: "3%"; */
+    margin-bottom: 10px;
+
+}
+
+
+#suchenButton
+{
+    /* width: 2.5%; */
+    /* padding-left: 15px; */
+    /* padding-top: 3px; */
+    /* padding-bottom: 3px; */
+    /* min-width: "3%"; */
+    margin-bottom: 10px;
+}
+
