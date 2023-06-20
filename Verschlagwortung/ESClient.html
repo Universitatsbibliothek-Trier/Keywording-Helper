@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GND - Gehilfe</title>
+    <!-- <script src="Javatest.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
+    <link href="gnd.css" rel="stylesheet">
+    <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    
+</head>
+<body onload="aktualisiereListe()"></body>
+
+<!-- <h1 class="mdc-typography--headline4"><span id="headerText"></span></h1> -->
+<h1 class="mdc-typography--headline4" id="headerText"></h1>
+
+
+<!-- <button class="mdc-fab mdc-fab--mini" aria-label="Favorite">
+      <span class="mdc-fab__icon material-icons">add</span>
+    </button> -->
+
+
+
+<!-- <button >Add GND</button> -->
+<div class="mdc-touch-target-wrapper" id="aktualisierenDiv">
+    <button onclick="aktualisiereListe()" class="mdc-button mdc-button--raised" id="aktualisierungsButton">
+        <div class="mdc-button__ripple"></div>
+        <span class="mdc-button__touch"></span>
+        <span class="mdc-button__label">GND-Liste Aktualisieren</span>
+    </button> 
+</div>
+
+<div>
+    <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="suchFeld">
+        <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id">Eintrag suchen</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+        </span>
+        <input id="searchField" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber" onkeyup="keyPressed()">
+    </label>
+
+    <div class="mdc-touch-target-wrapper" class="uiButton">
+        <button onclick="suchenListe()" class="mdc-button mdc-button--raised" id="suchenButton">
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__touch"></span>
+            <span class="mdc-button__label">Suchen</span>
+        </button>
+    </div>
+
+
+
+    <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="eintragLabel">
+        <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id">URI mit GND-ID</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+        </span>
+        <input id="gndNumber" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber">
+    </label>
+
+  
+        <div class="mdc-touch-target-wrapper"  id="pasteButtonDiv">
+            <button class="mdc-button mdc-button--raised" id="pasteButton" onclick="pasteFromClipboard()">
+            
+            <div class="mdc-button__ripple" id="pasteButtonDiv">
+
+            </div>
+
+            <span class="mdc-button__touch"  id="pasteButtonDiv">
+
+            </span>
+            <span class="mdc-button__label" >
+                <img src="copy-xxl.png" class="copyImage">
+            </span>
+
+
+            </button>
+
+        </div>
+
+   
+    
+
+    <!-- const spanCopyLabel = document.createElement("span");
+    copyButton.insertAdjacentElement("afterbegin", spanCopyLabel);
+    // spanCopyLabel.id = jsonGNDsorted.hits.hits[x]._id;
+    spanCopyLabel.classList.add('mdc-button__label');
+    spanCopyLabel.innerHTML = "<img src=\"copy-xxl.png\" class=\"copyImage\" id=" + gndIDUri + ">";
+
+    const spanTouchCopy = document.createElement("span");
+    copyButton.insertAdjacentElement("afterbegin", spanTouchCopy);
+    spanTouchCopy.classList.add('mdc-button__touch');
+    spanTouchCopy.id = gndIDUri;
+
+    const divContainerRippleCopy = document.createElement("div");
+    copyButton.insertAdjacentElement("afterbegin", divContainerRippleCopy);
+    divContainerRippleCopy.classList.add('mdc-button__ripple');
+
+
+
+
+
+    const listCopyButton = document.createElement("li");
+    listBeginning.insertAdjacentElement("afterbegin", listCopyButton);
+    listCopyButton.classList.add('mdc-list-item');
+    listCopyButton.classList.add("copyButton");
+    listCopyButton.style.width = "2.5%";
+    var gndID = jsonGNDsorted.hits.hits[z]._source.jsonGND.gndIdentifier;
+    var gndIDUri = "https://d-nb.info/gnd/" + gndID;
+    // listCopyButton.id = gndIDUri;
+    listCopyButton.style.minWidth = "3%";
+    const divContainerCopy = document.createElement("div");
+    listCopyButton.insertAdjacentElement("afterbegin", divContainerCopy);
+    divContainerCopy.classList.add('mdc-touch-target-wrapper');
+    const copyButton = document.createElement("button");
+    divContainerCopy.insertAdjacentElement("afterbegin", copyButton);
+    copyButton.classList.add('mdc-button');
+    copyButton.classList.add('mdc-button--raised');
+    copyButton.addEventListener("click", function () { copyToClipboard() }); -->
+
+
+    <div class="mdc-touch-target-wrapper" class="uiButton">
+        <button onclick="getNewGND()" class="mdc-button mdc-button--raised" id="eintragButton" >
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__touch"></span>
+            <span class="mdc-button__label">GND-Eintrag hinzufügen</span>
+        </button>
+    </div>
+    <label id="rueckMeldung">Noch ist nichts passiert</label>
+
+    
+    
+</div>
+
+
+
+<ul class="mdc-image-list my-image-list">
+    <li class="mdc-list-item" id="listColumn1spec">
+      <!-- <div class="mdc-image-list__image-aspect-container"> -->
+               <span class="column">Preferred Name</span>
+      <!-- </div> -->
+    </li>
+    <!-- <hr id = "column1sep"> -->
+
+    <li class="mdc-list-item" id="listColumn2spec">
+        <!-- <div class="mdc-image-list__image-aspect-container"> -->
+                 <span class="column">GND-ID URI</span>
+
+        <!-- </div> -->
+      </li>
+      <!-- <hr id = "column1sep"> -->
+      <li class="mdc-list-item" id="listColumn3spec">
+        <!-- <div class="mdc-image-list__image-aspect-container"> -->
+                 <span class="column">Alternative name</span>
+        <!-- </div> -->
+      </li>
+      <!-- <hr id = "column1sep"> -->
+      <li class="mdc-list-item" id="listColumn4spec">
+        <!-- <div class="mdc-image-list__image-aspect-container"> -->
+                 <span class="column">Anzahl</span>
+
+        <!-- </div> -->
+      </li>
+    
+  </ul>
+
+  <!-- <img src="clipart1237164.png" id="copyImage"> -->
+
+<script defer src="getGNDButton.js"></script>
+
+<!-- <div id="divList" style="display:flex;"> -->
+<div id="divList" >
+    <script defer src = "keyPressSearchField.js"></script>
+    <script defer src = "configurations.js"></script>
+    <script defer src = "itemList.js"></script>
+    <script defer src = "sucheButton.js"></script>
+    <script defer src = "buttonPlus.js"></script>
+    <script defer src = "buttonMinus.js"></script>
+    <script defer src = "plusOrMinus.js"></script>
+    <script defer src = "copyButton.js"></script>
+    <script defer src = "pasteButton.js"></script>
+    <script defer src = "variantNamesText.js"></script>
+    <!-- <script defer src = "variantNamesButton.js"></script> -->
+    <script defer src = "variantNamesSpan.js"></script>
+
+</div>
+
+
+<!--    // Trier GND: 4060877-3
+    // Amphitheater: 1137516623
+    // Porta Nigra: 4474732-9
+    // Göthe: 118540238-->
+
+<script type="text/javascript">window.mdc.autoInit();</script>
+
+
+</body>
+</html>
