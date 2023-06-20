@@ -7,6 +7,7 @@
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <link href="gnd.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -135,6 +136,27 @@
             <span class="mdc-button__label">GND-Eintrag hinzufügen</span>
         </button>
     </div>
+
+    <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="eintragLabel">
+        <span class="mdc-notched-outline">
+            <span class="mdc-notched-outline__leading"></span>
+            <span class="mdc-notched-outline__notch">
+                <span class="mdc-floating-label" id="my-label-id">offizielle GND-Suche</span>
+            </span>
+            <span class="mdc-notched-outline__trailing"></span>
+        </span>
+        <input id="officialGND" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber">
+    </label>
+
+    <div class="mdc-touch-target-wrapper" class="uiButton">
+        <button onclick="getOfficialGND()" class="mdc-button mdc-button--raised" id="eintragOfficialButton" >
+            <div class="mdc-button__ripple"></div>
+            <span class="mdc-button__touch"></span>
+            <span class="mdc-button__label">GND-Eintrag suchen</span>
+        </button>
+    </div>
+
+
     <label id="rueckMeldung">Noch ist nichts passiert</label>
 
     
@@ -176,6 +198,7 @@
   <!-- <img src="clipart1237164.png" id="copyImage"> -->
 
 <script defer src="getGNDButton.js"></script>
+<script defer src="getGNDAutoSuggest.js"></script>
 
 <!-- <div id="divList" style="display:flex;"> -->
 <div id="divList" >
