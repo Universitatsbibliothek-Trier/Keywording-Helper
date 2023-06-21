@@ -1,11 +1,10 @@
 'use strict'
 
-// var ulElement = document.createElement("ul");
-// ulElement.id = "unorderedList";
-var jsonGND;
-var jsonGNDsorted;
 async function createOfficialGNDList(jsonGND)
 {
+  alternativeSpan
+  document.getElementById("alternativeSpan").innerHTML = "Kategorie"
+  document.getElementById("listColumn3spec").style.marginRight = "-3.2%";
   document.getElementById("rueckMeldung").innerHTML = "Erstelle offizielle Liste mit GND-Einträgen..."
   let nodeList = document.getElementById("divList");
 
@@ -19,41 +18,47 @@ async function createOfficialGNDList(jsonGND)
   nodeList.insertAdjacentElement("afterbegin", listBeginning);
   listBeginning.classList.add('mdc-image-list');
 
-
-
-  // Ändern nach GND-Einträgen
-  // jsonGND = await response.json();
-  console.log("jsonGND ist: " + jsonGND);
-  jsonGNDsorted = JSON.parse(JSON.stringify(jsonGND));
-  let x;
-  let y;
-  var biggestVorkommen = 0;
-  var biggestVorkommenIndex = 0;
-  for (y = 0; (y < jsonGNDsorted.hits.hits.length); y++)
+  let z = parseInt(jsonGND.length) - 1;
+  for (let x in jsonGND)
   {
-    jsonGNDsorted.hits.hits[y]._source.jsonGND.vorkommen = 0;
-    for (x = 0; (x < jsonGND.hits.hits.length); x++)
-    {
-      if (biggestVorkommen < jsonGND.hits.hits[x]._source.jsonGND.vorkommen)
+    let jsonGNDString = jsonGND[z].id;
+    let jsonGNDIdPart = jsonGNDString.substring(22, jsonGNDString.length);
+    let partGetURL = basicURL + "_search";
+    // console.log("jsonGNDid ist: " + jsonGND[z].id);
+    // console.log("jsonGNDidPart ist: " + jsonGNDIdPart);
+    const responseGet = await fetch(partGetURL,
       {
-        biggestVorkommenIndex = x;
-        biggestVorkommen = jsonGND.hits.hits[x]._source.jsonGND.vorkommen;
+        mode: 'cors',
+        credentials: "include",
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          "query": {
+            "bool": {
+              "filter": {
+                "term": {
+                  "jsonGND.gndIdentifier.keyword": jsonGNDIdPart
+                }
+              }
+            }
+          }
+        })
       }
-    }
-    if (jsonGNDsorted.hits.hits[y]._source.jsonGND.vorkommen < biggestVorkommen)
-    {
-      jsonGNDsorted.hits.hits[y] = jsonGND.hits.hits[biggestVorkommenIndex];
-      jsonGND.hits.hits.splice(biggestVorkommenIndex, 1);
-      biggestVorkommen = 0;
-    }
-  }
+    );
 
-  var z = parseInt(jsonGNDsorted.hits.hits.length) - 1;
-  for (let x in jsonGNDsorted.hits.hits)
-  {
-    // sortierfunktion nach Anzahl einbauen
-    createButton(listBeginning, "minus", z);
-    createButton(listBeginning, "plus", z);
+    let jsonGNDLocal = await responseGet.json();
+    // console.log("jsonGND hits array from official GND: " + jsonGNDLocal.hits.hits);
+
+    // todo: search eigene DB with preferred name from official gnd answer jsonGND.label; 
+    // wenn leere antwort von eigner db zurückkommt => vorkommen = 0 und bei "+"-Button:
+    // httprequest an offizielle GND und entsprechende eintragung in die eigene DB mit vorkommen = 1 (selbe Methode wie seachGND? von getGNDButton)
+    // wenn nicht leere anwort => zeige richtiges vorkommen an und erhöhe bei "+"-Button vorkommen um 1 => (selbe Methode wie von buttonPlus Methode GND-ID mitgeben als Parameter)
+    if ((jsonGNDLocal.hits.hits).length > 0)
+    {
+      createButtonOfficial(listBeginning, "minus", jsonGNDIdPart);
+    }
+    createButtonOfficial(listBeginning, "plus", jsonGNDIdPart);
+
 
     const listVorkommen = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listVorkommen);
@@ -61,141 +66,16 @@ async function createOfficialGNDList(jsonGND)
     listVorkommen.id = "listColumn4";
     const spanVorkommen = document.createElement("span");
     listVorkommen.appendChild(spanVorkommen);
-    spanVorkommen.innerHTML = jsonGNDsorted.hits.hits[z]._source.jsonGND.vorkommen;
 
     const listItemAlterName = document.createElement("li");
 
     listItemAlterName.classList.add('mdc-list-item');
     listItemAlterName.id = "listColumn3";
     var spanAlterName = document.createElement("span");
-    spanAlterName.id = "span" + jsonGNDsorted.hits.hits[z]._id;
+    spanAlterName.id = "span" + jsonGNDIdPart;
     listItemAlterName.appendChild(spanAlterName);
-    var variantNames = jsonGNDsorted.hits.hits[z]._source.jsonGND.variantName;
-    // console.log("spanAlterNameid ist: " + spanAlterName.id );
-
-    spanAlterName.clicked = "false";
-    // console.log("z ist: " + z);
-    
-    // spanAlterName.addEventListener("click", function (){showAllVariantNames(variantNames)});
-    // buttonPlus.addEventListener("click", function () { plusOrMinus(plusOrMinusString) });
-
-    var variantNamesStringSemiColon = "";
-    let x = 0;
-    if (!(variantNames === undefined))
-    {
-      for (; x < variantNames.length; x++)
-      {
-        if (x == 0)
-        {
-          variantNamesStringSemiColon = variantNamesStringSemiColon + variantNames[x];
-        }
-        else
-        {
-          variantNamesStringSemiColon = variantNamesStringSemiColon + "; " + variantNames[x]
-        }
-
-      }
-    }
-    spanAlterName.variantNamesAttr = variantNamesStringSemiColon;
-    // for (; x < variantNames.length; x++)
-    // {
-    //   variantNamesStringSemiColon = variantNamesStringSemiColon + variantNames[x];
-    // }
-    // if(!(variantNames === undefined))
-    // {
-    //   console.log("Variantennamenlänge: " + variantNames.toString().length);
-    //   console.log("ist nicht undefined");
-    // }
-    // spanAlterName.visibility = 'hidden';
-    var expandButton = document.createElement("button");
-    var expandButtonSpan = document.createElement("span");
-    var variantNamesString = "";
-    if (((!(variantNames === undefined))) && ((variantNames.toString()).length > 55))
-    {
-      let y = 0;
-      for (; y < variantNames.length; y++)
-      {
-        // console.log("y ist: " + y);
-        if (y == 0)
-        {
-          variantNamesString = variantNamesString + variantNames[y];
-        }
-        else
-        {
-          variantNamesString = variantNamesString + "; " + variantNames[y];
-        }
-
-        if (variantNamesString.length > 50 && (y < variantNames.length))
-        {
-          // variantNamesString = variantNamesString - variantNamePart;
-          spanAlterName.innerHTML = variantNamesString;
-          const listItemAlterNameButton = document.createElement("li");
-          listItemAlterNameButton.classList.add('mdc-list-item');
-          listItemAlterNameButton.id = "expandButtonItem";
-          listItemAlterNameButton.insertAdjacentElement("afterbegin", expandButton);
-          listBeginning.insertAdjacentElement("afterbegin", listItemAlterNameButton);
-          expandButton.classList.add('mdc-fab--mini');
-          expandButton.classList.add('mdc-fab');
-
-          
-          expandButton.insertAdjacentElement("afterbegin", expandButtonSpan);
-          expandButtonSpan.classList.add('material-icons');
-          expandButtonSpan.classList.add('mdc-fab__icon');
-          expandButtonSpan.innerHTML = "add";
-          // expandButtonSpan.id = "expandButton";
-          // expandButton.class="expandButton";
-          expandButton.classList.add("expandButton");
-          expandButton.id="es" + jsonGNDsorted.hits.hits[z]._id;
-          
-          // expandButton.classList.add('mdc-fab mdc-fab--mini');
-
-          spanAlterName.variantNamesString = variantNamesString;
-          expandButton.variantNamesString = variantNamesString;
-          expandButtonSpan.variantNamesString = variantNamesString;
-          expandButtonSpan.addEventListener("click", function () { showAllVariantSpan() });
-          spanAlterName.addEventListener("click", function () { showAllVariantNames() });
-          break;
-          // console.log("variantNamesString ist: " + variantNamePart);
-        }
-        else if ((variantNamesString.length > 50) && (y == variantNames.length - 1))
-        {
-          spanAlterName.innerHTML = variantNamesString;
-          break;
-          // console.log("variantNamesString ist: " + variantNamePart);
-
-        }
-        // console.log("variantNamesString ist: " + variantNamePart);
-        spanAlterName.innerHTML = variantNamesString;
-
-
-      }
-
-    }
-    else
-    {
-      spanAlterName.innerHTML = variantNamesStringSemiColon;
-      spanAlterName.variantNamesString = variantNamesStringSemiColon;
-      spanAlterName.variantNames = variantNamesStringSemiColon;
-      listItemAlterName.style.width = "33.2%";
-      expandButton.variantNamesString = variantNamesStringSemiColon;
-      expandButton.variantNames = variantNamesStringSemiColon;
-      expandButtonSpan.variantNamesString = variantNamesStringSemiColon;
-      expandButtonSpan.variantNames = variantNamesStringSemiColon;
-      // console.log("remove eventlistener");
-      // spanAlterName.removeEventListener("click", function () { showAllVariantNames() });
-    }
-
-
-    // spanAlterName.style.display = 'none';
-    expandButton.clicked = "false";
-    // expandButton.esID = "es" + jsonGNDsorted.hits.hits[z]._id;
-    console.log("expandButtonID ist: " + expandButton.esID);
-    expandButtonSpan.clicked = "false";
-    expandButton.classList.add("expandButton");
-    expandButtonSpan.classList.add("buttonSpan");
-    // expandButtonSpan.esID = "spanes" + jsonGNDsorted.hits.hits[z]._id;
-    // expandButton.addEventListener("click", function () { showAllVariantButton() });
-    expandButtonSpan.id = "spanes" + jsonGNDsorted.hits.hits[z]._id;
+    var variantNames = jsonGND[z].category;
+    spanAlterName.innerHTML = variantNames;
 
 
     listBeginning.insertAdjacentElement("afterbegin", listItemAlterName);
@@ -205,8 +85,8 @@ async function createOfficialGNDList(jsonGND)
     listCopyButton.classList.add('mdc-list-item');
     listCopyButton.classList.add("copyButton");
     listCopyButton.style.width = "2.5%";
-    var gndID = jsonGNDsorted.hits.hits[z]._source.jsonGND.gndIdentifier;
-    var gndIDUri = "https://d-nb.info/gnd/" + gndID;
+    // let gndID = jsonGND.hits.hits[z]._source.jsonGND.gndIdentifier;
+    let gndIDUri = jsonGNDIdPart;
     // listCopyButton.id = gndIDUri;
     listCopyButton.style.minWidth = "3%";
     const divContainerCopy = document.createElement("div");
@@ -220,14 +100,14 @@ async function createOfficialGNDList(jsonGND)
 
     const spanCopyLabel = document.createElement("span");
     copyButton.insertAdjacentElement("afterbegin", spanCopyLabel);
-    // spanCopyLabel.id = jsonGNDsorted.hits.hits[x]._id;
+    // spanCopyLabel.id = jsonGND.hits.hits[x]._id;
     spanCopyLabel.classList.add('mdc-button__label');
-    spanCopyLabel.innerHTML = "<img src=\"copy-xxl.png\" class=\"copyImage\" id=" + gndIDUri + ">";
+    spanCopyLabel.innerHTML = "<img src=\"copy-xxl.png\" class=\"copyImage\" id=" + jsonGND[z].id + ">";
 
     const spanTouchCopy = document.createElement("span");
     copyButton.insertAdjacentElement("afterbegin", spanTouchCopy);
     spanTouchCopy.classList.add('mdc-button__touch');
-    spanTouchCopy.id = gndIDUri;
+    spanTouchCopy.id = jsonGND[z].id;
 
     const divContainerRippleCopy = document.createElement("div");
     copyButton.insertAdjacentElement("afterbegin", divContainerRippleCopy);
@@ -243,7 +123,7 @@ async function createOfficialGNDList(jsonGND)
     const spanGND = document.createElement("span");
     listItemGND.appendChild(spanGND);
 
-    spanGND.innerHTML = gndIDUri;
+    spanGND.innerHTML = jsonGND[z].id;
 
 
 
@@ -253,29 +133,39 @@ async function createOfficialGNDList(jsonGND)
     listItemName.id = "listColumn1";
     const spanName = document.createElement("span");
     listItemName.appendChild(spanName);
-    spanName.innerHTML = jsonGNDsorted.hits.hits[z]._source.jsonGND.preferredName;
+    spanName.innerHTML = jsonGND[z].label;
     z = z - 1;
-    document.getElementById("rueckMeldung").innerHTML = "Liste ist aktuell.";
+
+    if ((jsonGNDLocal.hits.hits).length > 0)
+    {
+      for (let x in jsonGNDLocal.hits.hits)
+      {
+        console.log("Eintragung in DB existiert");
+        console.log("Eintrag ist: " + jsonGNDLocal.hits.hits[x]);
+        spanVorkommen.innerHTML = jsonGNDLocal.hits.hits[x]._source.jsonGND.vorkommen;
+      }
+
+    }
+    else{
+      spanVorkommen.innerHTML = 0;
+    }
+
+    document.getElementById("rueckMeldung").innerHTML = "Ergebnisse der Suche:";
   }
 }
 
-function createButton(listBeginning, plusOrMinusString, x)
+function createButtonOfficial(listBeginning, plusOrMinusString, jsonGNDIdPart)
 {
   // x = parseInt(x);
-  // console.log(x);
+  // console.log("jsonGND ist: " + jsonGND[z]);
   const listPlusButton = document.createElement("li");
   listBeginning.insertAdjacentElement("afterbegin", listPlusButton);
   listPlusButton.classList.add('mdc-list-item');
-  listPlusButton.classList.add("plusMinusButton");
+
   listPlusButton.style.width = "2.5%";
-  // console.log("jsonGNDsorted in createButtons: " + jsonGNDsorted.hits.hits.length);
-  listPlusButton.id = jsonGNDsorted.hits.hits[x]._id;
+  // console.log("jsonGND in createButtons: " + jsonGND.hits.hits.length);
+  listPlusButton.id = jsonGNDIdPart;
   listPlusButton.style.minWidth = "3%";
-  if (plusOrMinusString == "minus")
-  {
-    listPlusButton.style.marginRight = "14%";
-    // listPlusButton.style.minWidth = "14%";
-  }
 
   const divContainer = document.createElement("div");
   listPlusButton.insertAdjacentElement("afterbegin", divContainer);
@@ -285,25 +175,28 @@ function createButton(listBeginning, plusOrMinusString, x)
   divContainer.insertAdjacentElement("afterbegin", buttonPlus);
   buttonPlus.classList.add('mdc-button');
   buttonPlus.classList.add('mdc-button--raised');
-  buttonPlus.addEventListener("click", function () { plusOrMinus(plusOrMinusString) });
+  buttonPlus.addEventListener("click", function () { plusOrMinusOfficial(plusOrMinusString) });
 
   const spanLabel = document.createElement("span");
   buttonPlus.insertAdjacentElement("afterbegin", spanLabel);
-  spanLabel.id = jsonGNDsorted.hits.hits[x]._id;
+  spanLabel.id = jsonGNDIdPart;
   spanLabel.classList.add('mdc-button__label');
   if (plusOrMinusString == "plus")
   {
+    // CSS if-abfrage, ob button alleine steht
+    listPlusButton.classList.add("plusButtonAlone");
     spanLabel.innerHTML = "+";
   }
   else
   {
+    // listPlusButton.classList.add("plusButton");
     spanLabel.innerHTML = "-";
   }
 
   const spanTouch = document.createElement("span");
   buttonPlus.insertAdjacentElement("afterbegin", spanTouch);
   spanTouch.classList.add('mdc-button__touch');
-  spanTouch.id = jsonGNDsorted.hits.hits[x]._id;
+  spanTouch.id = jsonGNDIdPart;
 
   const divContainerRipple = document.createElement("div");
   buttonPlus.insertAdjacentElement("afterbegin", divContainerRipple);

@@ -4,6 +4,9 @@
     font-size: larger;
     width: 13%;
     margin-bottom: 3px;
+    /* border-top-width: 2px;
+    border-top-color: black;
+    border-top-style: solid; */
 }
 
 #listColumn2spec
@@ -36,27 +39,17 @@
     padding-bottom: 5x;
 }
 
-.mdc-list-item
-{
-    /* font-size: large; */
-    /* padding-bottom: -20px; */
-    /* height: 50%; */
-}
-
-
 #listColumn1
 {
     padding-top: 8px;
     font-size: large;
     width: 13%;
-    /* padding-bottom: 8px; */
     border-top-width: 2px;
     border-top-color: black;
     border-top-style: solid;
     border-right-width: 2px;
     border-right-color: black;
     border-right-style: solid;
-    /* height: 5px;  */
 }
 
 #listColumn2
@@ -68,9 +61,6 @@
     border-top-width: 2px;
     border-top-color: black;
     border-top-style: solid;
-    /* border-right-width: 2px;
-    border-right-color: black;
-    border-right-style: solid; */
 }
 
 #listColumn3
@@ -83,9 +73,6 @@
     border-top-width: 2px;
     border-top-color: black;
     border-top-style: solid;
-    /* border-right-width: 2px;
-    border-right-color: black;
-    border-right-style: solid; */
     border-left-width: 2px;
     border-left-color: black;
     border-left-style: solid;
@@ -129,7 +116,6 @@
 }
 .plusMinusButton
 {
-    /* width: 12.5%; */
     padding-left: 5px;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -140,7 +126,6 @@
 
 .copyButton
 {
-    /* width: 12.5%; */
     padding-left: 5px;
     padding-top: 3px;
     padding-bottom: 3px;
@@ -152,40 +137,24 @@
 #eintragLabel
 {
     width:18%;
-    /* padding-bottom: 5px; */
     margin-left: 5%;
-    /* padding-right: 30%; */
-     /* float: right; */
 }
 
 #suchFeld
 {
     width:20%;
-    /* font-size: 30px; */
-    /* padding-bottom: -15px; */
-    /* margin-bottom: 5px; */
     margin-top: 8px;
-    /* padding-top: -10px; */
-    /* padding-bottom: 20px; */
 }
-
-
 
 #headerText
 {
     margin-bottom: 8px;
     margin-top: 2px;
-    /* margin-bottom: 5px; */
 }
 
-/* #my-label-id
-{
-    font-size: 10px;
-} */
 
 #gndNumber
 {
-    /* width:20%; */
     font-size: 22px;
 }
 
@@ -202,8 +171,16 @@
 
 #rueckMeldung
 {
-    font-size: 20px;
+    font-size: 22px;
     margin-left: 20px;
+    color: blue;
+    font-weight: bold;
+    margin-left: -0.2%;
+    margin-top: 0.5%;
+
+    /* border-bottom-width: 2px;
+    border-bottom-color: blue;
+    border-bottom-style: solid;  */
 }
 .copyImage
 {
@@ -211,38 +188,19 @@
     width: 20px;
     height: 20px;
 }
-.expandButton
-{
-    /* margin-top: 5px;
-    width: 1.6%;
-    height: 30px; */
-
-
-    /* align-tracks: right; */
-    /* position: inherit; */
-}
 .buttonSpan
 {
     
     width: 1000px;
     height: 300px;
-    /* border-top-width: 2px;
-    border-top-color: black;
-    border-top-style: solid; */
-    /* align-self: flex-end; */
 }
 #expandButtonItem
 {
     padding-top: 1px;
-    /* margin-left: -12px; */
     width: 1.8%;
-    /* height: 3px;  */
     border-top-width: 2px;
     border-top-color: black;
     border-top-style: solid; 
-    /* border-right-width: 2px;
-    border-right-color: black;
-    border-right-style: solid;  */
 }
 
 #pasteButton
@@ -257,42 +215,54 @@
 }
 #pasteButtonDiv
 {
-
     padding-bottom: 113px;
     margin-bottom: 10px;
-
 }
 
 #eintragButton
 {
-    /* width: 2.5%; */
-    /* padding-left: 15px; */
-    /* padding-top: 3px; */
-    /* padding-bottom: 3px; */
-    /* min-width: "3%"; */
     margin-bottom: 10px;
 
 }
 #eintragOfficialButton
 {
-    /* width: 2.5%; */
-    /* padding-left: 15px; */
-    /* padding-top: 3px; */
-    /* padding-bottom: 3px; */
-    /* min-width: "3%"; */
     margin-bottom: 10px;
-
 }
-
 
 #suchenButton
 {
-    /* width: 2.5%; */
-    /* padding-left: 15px; */
-    /* padding-top: 3px; */
-    /* padding-bottom: 3px; */
-    /* min-width: "3%"; */
     margin-bottom: 10px;
-    
+}
+
+.plusButtonAlone
+{
+    padding-left: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-top-width: 2px;
+    width: 2.5%;
+    border-top-color: black;
+    border-top-style: solid;
+    margin-right: 15%;
+}
+
+.plusButton
+{
+    padding-left: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-top-width: 2px;
+    width: 2.5%;
+    border-top-color: black;
+    border-top-style: solid;
+    margin-right: 15%;
+}
+
+#statusMeldung
+{
+    font-size: 22px;
+    margin-left: -0.2%;
+    margin-top: 0%;
+    display: block;
 }
 
