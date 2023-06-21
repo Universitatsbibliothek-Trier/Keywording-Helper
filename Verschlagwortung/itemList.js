@@ -4,8 +4,13 @@
 // ulElement.id = "unorderedList";
 var jsonGND;
 var jsonGNDsorted;
+
+
+
 async function aktualisiereListe()
 {
+  document.getElementById("listColumn3spec").style.marginRight = "0%";
+  document.getElementById("alternativeSpan").innerHTML = "Alternative Name"
   document.getElementById("rueckMeldung").innerHTML = "aktualisiere Liste mit GND-Einträgen..."
   let nodeList = document.getElementById("divList");
 

@@ -9,6 +9,8 @@ async function suchenListe()
 {
   // var unorderedList = document.getElementById("unorderedList");
   // unorderedList.remove();
+  document.getElementById("listColumn3spec").style.marginRight = "0%";
+  document.getElementById("alternativeSpan").innerHTML = "Alternative Name"
   document.getElementById("rueckMeldung").innerHTML = "aktualisiere Liste mit GND-Einträgen..."
   let nodeList = document.getElementById("divList");
   let suchEingabe = document.getElementById("searchField").value;

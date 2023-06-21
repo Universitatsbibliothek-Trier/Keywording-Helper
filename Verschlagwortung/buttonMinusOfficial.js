@@ -1,9 +1,8 @@
 'use strict'
 
-async function buttonPlusRaise(buttonID)
+async function buttonMinusOfficial(plusOrMinusString)
 {
-  console.log("buttonplus ich wurde ausgeführt");
-  var buttonIDString = buttonID.id;
+  var buttonIDString = event.target.id;
   let partURL = basicURL + "_doc/" + buttonIDString;
   const response = await fetch(partURL,
     {
