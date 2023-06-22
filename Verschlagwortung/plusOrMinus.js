@@ -14,8 +14,3 @@ async function plusOrMinus(plusOrMinusString)
   }
   setTimeout(aktualisiereListe, 1000);
 }
-
-async function copyToClipboard()
-{
-  
-}

@@ -1,6 +1,6 @@
 'use strict'
 
-async function buttonPlusRaiseOfficial(plusOrMinusString)
+async function buttonPlusRaiseOfficial()
 {
   var buttonIDString = event.target.id;
   let partURL = basicURL + "_doc/" + buttonIDString;

@@ -1,5 +1,4 @@
 'use strict'
-
 async function buttonMinusOfficial(plusOrMinusString)
 {
   var buttonIDString = event.target.id;

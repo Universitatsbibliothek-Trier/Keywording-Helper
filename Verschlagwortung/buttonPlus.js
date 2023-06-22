@@ -2,7 +2,6 @@
 
 async function buttonPlusRaise(buttonID)
 {
-  console.log("buttonplus ich wurde ausgeführt");
   var buttonIDString = buttonID.id;
   let partURL = basicURL + "_doc/" + buttonIDString;
   const response = await fetch(partURL,
