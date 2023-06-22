@@ -11,7 +11,6 @@ async function buttonMinusRaise(buttonID)
       headers: { 'Content-Type': 'application/json' },
      }
   );
-
   var jsonGNDResponse = await response.json();
   jsonGNDResponse._source.jsonGND.vorkommen = jsonGNDResponse._source.jsonGND.vorkommen - 1
   if(jsonGNDResponse._source.jsonGND.vorkommen > 0)
@@ -45,8 +44,7 @@ async function buttonMinusRaise(buttonID)
         mode: 'cors',
         credentials: "include",
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' }
-        
+        headers: { 'Content-Type': 'application/json' } 
        }
     );
   }

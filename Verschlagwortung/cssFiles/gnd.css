@@ -4,9 +4,6 @@
     font-size: larger;
     width: 13%;
     margin-bottom: 3px;
-    /* border-top-width: 2px;
-    border-top-color: black;
-    border-top-style: solid; */
 }
 
 #listColumn2spec
@@ -177,10 +174,6 @@
     font-weight: bold;
     margin-left: -0.2%;
     margin-top: 0.5%;
-
-    /* border-bottom-width: 2px;
-    border-bottom-color: blue;
-    border-bottom-style: solid;  */
 }
 .copyImage
 {
@@ -190,7 +183,6 @@
 }
 .buttonSpan
 {
-    
     width: 1000px;
     height: 300px;
 }
@@ -266,3 +258,14 @@
     display: block;
 }
 
+.minusButton
+{
+    border-bottom-color: black;
+    border-bottom-width: 2px;
+    margin-right: 14%;
+}
+
+.plusAufButton
+{
+    font-size: 35px;
+}
