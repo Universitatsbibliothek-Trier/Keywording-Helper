@@ -5,6 +5,9 @@
     <title>GND - Helferlein</title>
     <link href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css" rel="stylesheet">
     <script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script> -->
+    <script src="list.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -13,127 +16,219 @@
 
 <body onload="aktualisiereListe()">
 
-<h1 class="mdc-typography--headline4" id="headerText"></h1>
-<div class="mdc-touch-target-wrapper" id="aktualisierenDiv">
-    <button onclick="aktualisiereListe()" class="mdc-button mdc-button--raised" id="aktualisierungsButton">
-        <div class="mdc-button__ripple"></div>
-        <span class="mdc-button__touch"></span>
-        <span class="mdc-button__label">GND-Liste Aktualisieren</span>
-    </button>
-</div>
-
-<div>
-    <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="suchFeld">
-        <span class="mdc-notched-outline">
-            <span class="mdc-notched-outline__leading"></span>
-            <span class="mdc-notched-outline__notch">
-                <span class="mdc-floating-label" id="my-label-id">Eintrag suchen</span>
-            </span>
-            <span class="mdc-notched-outline__trailing"></span>
-        </span>
-        <input id="searchField" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber"
-            onkeyup="keyPressed()">
-    </label>
-
-    <div class="mdc-touch-target-wrapper" class="uiButton">
-        <button onclick="suchenListe()" class="mdc-button mdc-button--raised" id="suchenButton">
+    <h1 class="mdc-typography--headline4" id="headerText"></h1>
+    <div class="mdc-touch-target-wrapper" id="aktualisierenDiv">
+        <button onclick="aktualisiereListe()" class="mdc-button mdc-button--raised" id="aktualisierungsButton">
             <div class="mdc-button__ripple"></div>
             <span class="mdc-button__touch"></span>
-            <span class="mdc-button__label">Suchen</span>
+            <span class="mdc-button__label">GND-Liste Aktualisieren</span>
         </button>
     </div>
 
-    <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="eintragLabel">
-        <span class="mdc-notched-outline">
-            <span class="mdc-notched-outline__leading"></span>
-            <span class="mdc-notched-outline__notch">
-                <span class="mdc-floating-label" id="my-label-id">URI mit GND-ID</span>
+    <div id="searchFieldDiv">
+        <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="suchFeld">
+            <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">GND-Eintrag in Liste suchen</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
             </span>
-            <span class="mdc-notched-outline__trailing"></span>
-        </span>
-        <input id="gndNumber" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber">
-    </label>
+            <input id="searchField" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber"
+                onkeyup="keyPressed()">
+        </label>
 
-    <div class="mdc-touch-target-wrapper" id="pasteButtonDiv">
-        <button class="mdc-button mdc-button--raised" id="pasteButton" onclick="pasteFromClipboard()">
-            <div class="mdc-button__ripple" id="pasteButtonDiv"></div>
-            <span class="mdc-button__touch" id="pasteButtonDiv">
+        <div class="mdc-touch-target-wrapper" class="uiButton">
+            <button onclick="suchenListe()" class="mdc-button mdc-button--raised" id="suchenButton">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__touch"></span>
+                <span class="mdc-button__label">Suchen</span>
+            </button>
+        </div>
+
+        <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="eintragLabel">
+            <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">GND über URI hinzufügen</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
             </span>
-            <span class="mdc-button__label">
-                <img src="images/paste.png" class="copyImage">
+            <input id="gndNumber" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber">
+        </label>
+
+        <div class="mdc-touch-target-wrapper" id="pasteButtonDiv">
+            <button class="mdc-button mdc-button--raised" id="pasteButton" onclick="pasteFromClipboard()">
+                <div class="mdc-button__ripple" id="pasteButtonDiv"></div>
+                <span class="mdc-button__touch" id="pasteButtonDiv">
+                </span>
+                <span class="mdc-button__label">
+                    <img src="images/paste.png" class="copyImage">
+                </span>
+            </button>
+        </div>
+
+        <div class="mdc-touch-target-wrapper" class="uiButton">
+            <button onclick="getNewGND()" class="mdc-button mdc-button--raised" id="eintragButton">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__touch"></span>
+                <span class="mdc-button__label">GND-Eintrag hinzufügen</span>
+            </button>
+        </div>
+
+        <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="eintragLabel">
+            <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                    <span class="mdc-floating-label" id="my-label-id">In offizieller GND-Datenbank suchen</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
             </span>
-        </button>
+            <input id="officialGND" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber"
+                onkeyup="keyPressedOfficial()">
+        </label>
+
+        <div class="mdc-touch-target-wrapper" class="uiButton">
+            <button onclick="getOfficialGND()" class="mdc-button mdc-button--raised" id="eintragOfficialButton">
+                <div class="mdc-button__ripple"></div>
+                <span class="mdc-button__touch"></span>
+                <span class="mdc-button__label">GND-Eintrag suchen</span>
+            </button>
+        </div>
+        <label id="statusMeldung">Status:</label>
+        <label id="rueckMeldung">Noch ist nichts passiert</label>
     </div>
 
-    <div class="mdc-touch-target-wrapper" class="uiButton">
-        <button onclick="getNewGND()" class="mdc-button mdc-button--raised" id="eintragButton">
-            <div class="mdc-button__ripple"></div>
-            <span class="mdc-button__touch"></span>
-            <span class="mdc-button__label">GND-Eintrag hinzufügen</span>
-        </button>
+
+
+
+      <!-- <div id="test-list2">
+        <input type="text" class="search" />
+        <ul class="list mdc-image-list my-image-list">
+          <li class="mdc-list-item" id="listColumn1"><span>Trier</span></li>
+          <li class="mdc-list-item" id="listColumn2"><span>https://d-nb.info/gnd/4060877-3</span></li>
+          <li class="mdc-list-item" id="listColumn3"><span>Augusta Treuerorum; werwerewr; werwerwer; wewer;</span></li>
+          <li class="mdc-list-item" id="expandButtonItem"><button class="mdc-fab--mini mdc-fab expandButton"><span class="material-icons mdc-fab__icon buttonSpan">add</span></button></li>
+          <li class="mdc-list-item" id="listColumn4"><span>40</span></li>
+          <li class="mdc-list-item plusMinusButton" id="listColumn4">
+            <div>
+                <button class="mdc-button mdc-button--raised">
+                    <div>
+                        <span>
+                            -
+                        </span>
+                    </div>
+                </button>
+            </div>
+        </li>
+        <li class="mdc-list-item plusMinusButton" id="listColumn4">
+            <div>
+                <button class="mdc-button mdc-button--raised">
+                    <div>
+                        <span>
+                            +
+                        </span>
+                    </div>
+                </button>
+            </div>
+        </li>
+
+        <li class="mdc-list-item" id="listColumn1"><span>Schmier</span></li>
+          <li class="mdc-list-item" id="listColumn2"><span>https://d-nb.info/gnd/40wewe60877-3</span></li>
+          <li class="mdc-list-item" id="listColumn3"><span>Augusta Treuerorum; werwerweweweweewr; werwerwer; wewer;</span></li>
+          <li class="mdc-list-item" id="expandButtonItem"><button class="mdc-fab--mini mdc-fab expandButton"><span class="material-icons mdc-fab__icon buttonSpan">add</span></button></li>
+          <li class="mdc-list-item" id="listColumn4"><span>40</span></li>
+          <li class="mdc-list-item plusMinusButton" id="listColumn4">
+            <div>
+                <button class="mdc-button mdc-button--raised">
+                    <div>
+                        <span>
+                            -
+                        </span>
+                    </div>
+                </button>
+            </div>
+        </li>
+        <li class="mdc-list-item plusMinusButton" id="listColumn4">
+            <div>
+                <button class="mdc-button mdc-button--raised">
+                    <div>
+                        <span>
+                            +
+                        </span>
+                    </div>
+                </button>
+            </div>
+        </li> 
+          <li class="mdc-list-item"><span class="name">Rum Rogers Sr.</span></li>
+          <li class="mdc-list-item"><span class="name">Men of Low Moral Fiber</span></li> 
+          <li class="mdc-list-item"><span class="name">Men of Low Moral Fiber</span></li>
+          <li class="mdc-list-item"><span class="name">Men of Low Moral Fiber</span></li>
+          <li class="mdc-list-item"><span class="name">Men of Low Moral Fiber</span></li>
+          <li class="mdc-list-item"><span class="name">Men of Low Moral Fiber</span></li>
+          <li class="mdc-list-item"><span class="name">Men of Low Moral Fiber</span></li>
+          <li class="mdc-list-item"><span class="name">Men of Low Moral Fiber</span></li>
+          <li class="mdc-list-item"><span class="name">Men of Low Moral Fiber</span></li>
+          <li class="mdc-list-item"><p class="name">Men of Low Moral Fiber</p></li>
+          <li class="mdc-list-item"><p class="name">Men of Low Moral Fiber</p></li> 
+          <li class="mdc-list-item"><p class="name">Men of Low Moral Fiber</p></li> 
+          <li class="mdc-list-item"><p class="name">Men of Low Moral Fiber</p></li>  
+          <li class="mdc-list-item"><p class="name">Men of Low Moral Fiber</p></li>  
+          <li class="mdc-list-item"><p class="name">Men of Low Moral Fiber</p></li>  
+          <li class="mdc-list-item"><p class="name">Men of Low Moral Fiber</p></li>  
+          <li class="mdc-list-item"><p class="name">Men of Low Moral Fiber</p></li>  
+          <li class="mdc-list-item"><p class="name">Men of Low Moral Fiber</p></li>  
+        </ul>
+        <ul class="pagination"></ul>
+      </div> -->
+
+
+
+
+
+    <ul class="mdc-image-list my-image-list">
+        <li class="mdc-list-item" id="listColumn1spec">
+            <span class="column">Preferred Name</span>
+        </li>
+        <li class="mdc-list-item" id="listColumn2spec">
+            <span class="column">GND-ID URI</span>
+        </li>
+        <li class="mdc-list-item" id="listColumn3spec">
+            <span class="column" id="alternativeSpan">Alternative name</span>
+        </li>
+        <li class="mdc-list-item" id="listColumn4spec">
+            <span class="column" id="anzahlSpan">Anzahl</span>
+        </li>
+    </ul>
+
+    <div id="divList">
+        <script defer src="getGNDButton.js"></script>
+        <script defer src="getGNDAutoSuggest.js"></script>
+        <script defer src="newOfficialGND.js"></script>
+        <script defer src="keyPressOfficialSearchField.js"></script>
+        <script defer src="keyPressSearchField.js"></script>
+        <script defer src="configurations.js"></script>
+        <script defer src="itemList.js"></script>
+        <script defer src="searchButton.js"></script>
+        <script defer src="buttonPlus.js"></script>
+        <script defer src="buttonMinus.js"></script>
+        <script defer src="buttonMinusOfficial.js"></script>
+        <script defer src="buttonPlusOfficial.js"></script>
+        <script defer src="plusOrMinus.js"></script>
+        <script defer src="plusOrMinusOfficial.js"></script>
+        <script defer src="copyButton.js"></script>
+        <script defer src="pasteButton.js"></script>
+        <script defer src="variantNamesText.js"></script>
+        <script defer src="variantNamesSpan.js"></script>
+        <script defer src="officialGNDSearchList.js"></script>
+
+        <script defer src="listTest.js"></script>
     </div>
 
-    <label class="mdc-text-field mdc-text-field--outlined" data-mdc-auto-init="MDCTextField" id="eintragLabel">
-        <span class="mdc-notched-outline">
-            <span class="mdc-notched-outline__leading"></span>
-            <span class="mdc-notched-outline__notch">
-                <span class="mdc-floating-label" id="my-label-id">offizielle GND-Suche</span>
-            </span>
-            <span class="mdc-notched-outline__trailing"></span>
-        </span>
-        <input id="officialGND" type="text" class="mdc-text-field__input" aria-labelledby="gndNumber"
-            onkeyup="keyPressedOfficial()">
-    </label>
+    <script type="text/javascript">window.mdc.autoInit();</script>
 
-    <div class="mdc-touch-target-wrapper" class="uiButton">
-        <button onclick="getOfficialGND()" class="mdc-button mdc-button--raised" id="eintragOfficialButton">
-            <div class="mdc-button__ripple"></div>
-            <span class="mdc-button__touch"></span>
-            <span class="mdc-button__label">GND-Eintrag suchen</span>
-        </button>
-    </div>
-    <label id="statusMeldung">Status:</label>
-    <label id="rueckMeldung">Noch ist nichts passiert</label>
-</div>
-
-<ul class="mdc-image-list my-image-list">
-    <li class="mdc-list-item" id="listColumn1spec">
-        <span class="column">Preferred Name</span>
-    </li>
-    <li class="mdc-list-item" id="listColumn2spec">
-        <span class="column">GND-ID URI</span>
-    </li>
-    <li class="mdc-list-item" id="listColumn3spec">
-        <span class="column" id="alternativeSpan">Alternative name</span>
-    </li>
-    <li class="mdc-list-item" id="listColumn4spec">
-        <span class="column" id="anzahlSpan">Anzahl</span>
-    </li>
-</ul>
-
-<div id="divList">
-    <script defer src="getGNDButton.js"></script>
-    <script defer src="getGNDAutoSuggest.js"></script>
-    <script defer src="newOfficialGND.js"></script>
-    <script defer src="keyPressOfficialSearchField.js"></script>
-    <script defer src="keyPressSearchField.js"></script>
-    <script defer src="configurations.js"></script>
-    <script defer src="itemList.js"></script>
-    <script defer src="sucheButton.js"></script>
-    <script defer src="buttonPlus.js"></script>
-    <script defer src="buttonMinus.js"></script>
-    <script defer src="buttonMinusOfficial.js"></script>
-    <script defer src="buttonPlusOfficial.js"></script>
-    <script defer src="plusOrMinus.js"></script>
-    <script defer src="plusOrMinusOfficial.js"></script>
-    <script defer src="copyButton.js"></script>
-    <script defer src="pasteButton.js"></script>
-    <script defer src="variantNamesText.js"></script>
-    <script defer src="variantNamesSpan.js"></script>
-    <script defer src="officialGNDSearchList.js"></script>
-</div>
-
-<script type="text/javascript">window.mdc.autoInit();</script>
+    
 
 </body>
+
 </html>

@@ -9,10 +9,19 @@ async function suchenListe()
   let suchEingabe = document.getElementById("searchField").value;
   if (nodeList.hasChildNodes())
   {
-    nodeList.removeChild(nodeList.children[0]);
+    while (nodeList.firstChild) {
+      nodeList.removeChild(nodeList.lastChild);
+    }
+    // nodeList.removeChild(nodeList.children[0]);
   }
   const listBeginning = document.createElement("ul");
   nodeList.insertAdjacentElement("afterbegin", listBeginning);
+
+  listBeginning.classList.add('list');
+  const paginiationUl = document.createElement("ul");
+  listBeginning.insertAdjacentElement("afterend", paginiationUl);
+  paginiationUl.classList.add('pagination');
+  listBeginning.classList.add('my-image-list');
   listBeginning.classList.add('mdc-image-list');
   let partURL = basicURL + "_search?size=10000";
   const response = await fetch(partURL,
@@ -70,6 +79,7 @@ async function suchenListe()
       jsonGND.hits.hits.splice(biggestVorkommenIndex, 1);
       biggestVorkommen = 0;
     }
+    paginateItemList();
   }
 
   var z = parseInt(jsonGNDsorted.hits.hits.length) - 1;
@@ -173,7 +183,6 @@ async function suchenListe()
       expandButtonSpan.variantNames = variantNamesStringSemiColon;
     }
     expandButton.clicked = "false";
-    console.log("expandButtonID ist: " + expandButton.esID);
     expandButtonSpan.clicked = "false";
     expandButton.classList.add("expandButton");
     expandButtonSpan.classList.add("buttonSpan");
