@@ -16,7 +16,6 @@ async function getGND()
   var gndURI = document.getElementById("gndNumber").value;
   var gndURIClean = gndURI.replace(/ /g,'');
   var gndID = gndURIClean.substr(22, gndURIClean.length);
-  console.log("suche nach dieser gnd-nummer: " + gndID);
   let partGetURL = basicURL + "_search";
   const responseGet = await fetch(partGetURL,
     {

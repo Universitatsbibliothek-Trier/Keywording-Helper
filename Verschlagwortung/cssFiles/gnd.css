@@ -134,7 +134,7 @@
 #eintragLabel
 {
     width:18%;
-    margin-left: 5%;
+    margin-left: 2%;
 }
 
 #suchFeld
@@ -152,12 +152,16 @@
 
 #gndNumber
 {
-    font-size: 22px;
+    font-size: 20px;
 }
 
 #searchField
 {
-    font-size: 22px;
+    font-size: 20px;
+}
+#searchFieldDiv
+{
+    width: 85%;
 }
 
 .uiButton
@@ -269,3 +273,9 @@
 {
     font-size: 35px;
 }
+
+.pagination li {
+    display:inline-block;
+    padding:5px;
+  }
+

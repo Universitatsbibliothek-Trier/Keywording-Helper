@@ -9,11 +9,22 @@ async function aktualisiereListe()
   let nodeList = document.getElementById("divList");
   if (nodeList.hasChildNodes())
   {
-    nodeList.removeChild(nodeList.children[0]);
+    while (nodeList.firstChild) {
+      nodeList.removeChild(nodeList.lastChild);
+    }
+    // nodeList.removeChild(nodeList.children[0]);
   }
   const listBeginning = document.createElement("ul");
   listBeginning.id = "unorderedList";
   nodeList.insertAdjacentElement("afterbegin", listBeginning);
+
+  listBeginning.classList.add('list');
+  const paginiationUl = document.createElement("ul");
+  listBeginning.insertAdjacentElement("afterend", paginiationUl);
+  paginiationUl.classList.add('pagination');
+  listBeginning.classList.add('my-image-list');
+
+
   listBeginning.classList.add('mdc-image-list');
   let partURL = basicURL + "_search?size=10000";
   const response = await fetch(partURL,
@@ -219,6 +230,7 @@ async function aktualisiereListe()
     spanName.innerHTML = jsonGNDsorted.hits.hits[z]._source.jsonGND.preferredName;
     z = z - 1;
     document.getElementById("rueckMeldung").innerHTML = "Liste ist aktuell.";
+    paginateItemList();
   }
 
 }
