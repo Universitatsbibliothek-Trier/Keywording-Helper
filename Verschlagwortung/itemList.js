@@ -12,10 +12,8 @@ async function aktualisiereListe()
     while (nodeList.firstChild) {
       nodeList.removeChild(nodeList.lastChild);
     }
-    // nodeList.removeChild(nodeList.children[0]);
   }
   const listBeginning = document.createElement("ul");
-  listBeginning.id = "unorderedList";
   nodeList.insertAdjacentElement("afterbegin", listBeginning);
 
   listBeginning.classList.add('list');
@@ -202,7 +200,7 @@ async function aktualisiereListe()
     const spanCopyLabel = document.createElement("span");
     copyButton.insertAdjacentElement("afterbegin", spanCopyLabel);
     spanCopyLabel.classList.add('mdc-button__label');
-    spanCopyLabel.innerHTML = "<img src=\"images/copy-xxl.png\" class=\"copyImage\" id=" + gndIDUri + ">";
+    spanCopyLabel.innerHTML = "<img src=\"images/copy-icon-original.svg\" class=\"copyImage\" id=" + gndIDUri + ">";
 
     const spanTouchCopy = document.createElement("span");
     copyButton.insertAdjacentElement("afterbegin", spanTouchCopy);
@@ -230,8 +228,8 @@ async function aktualisiereListe()
     spanName.innerHTML = jsonGNDsorted.hits.hits[z]._source.jsonGND.preferredName;
     z = z - 1;
     document.getElementById("rueckMeldung").innerHTML = "Liste ist aktuell.";
-    paginateItemList();
   }
+  paginateItemList();
 
 }
 

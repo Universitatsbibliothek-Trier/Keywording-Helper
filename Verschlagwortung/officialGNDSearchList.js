@@ -11,15 +11,11 @@ async function createOfficialGNDList(jsonGND)
     while (nodeList.firstChild) {
       nodeList.removeChild(nodeList.lastChild);
     }
-    // nodeList.removeChild(nodeList.children[0]);
   }
   const listBeginning = document.createElement("ul");
   listBeginning.id = "unorderedList";
   nodeList.insertAdjacentElement("afterbegin", listBeginning);
   listBeginning.classList.add('list');
-  // const paginiationUl = document.createElement("ul");
-  // listBeginning.insertAdjacentElement("afterend", paginiationUl);
-  // paginiationUl.classList.add('pagination');
   listBeginning.classList.add('my-image-list');
   listBeginning.classList.add('mdc-image-list');
   let z = parseInt(jsonGND.length) - 1;
@@ -134,7 +130,6 @@ async function createOfficialGNDList(jsonGND)
       spanVorkommen.innerHTML = 0;
     }
     document.getElementById("rueckMeldung").innerHTML = "Ergebnisse der Suche:";
-    paginateItemList()
   }
 }
 

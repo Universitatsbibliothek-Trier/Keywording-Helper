@@ -7,5 +7,5 @@ async function getOfficialGND()
   let URLGnd = partURLGnd + gndEingabe + "&format=json:preferredName";
   const responseGNDLobid = await fetch(URLGnd);
   let jsonGND = await responseGNDLobid.json();
-  createOfficialGNDList(jsonGND);
+  await createOfficialGNDList(jsonGND);
 }
