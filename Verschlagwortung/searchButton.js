@@ -12,7 +12,6 @@ async function suchenListe()
     while (nodeList.firstChild) {
       nodeList.removeChild(nodeList.lastChild);
     }
-    // nodeList.removeChild(nodeList.children[0]);
   }
   const listBeginning = document.createElement("ul");
   nodeList.insertAdjacentElement("afterbegin", listBeginning);
@@ -79,7 +78,7 @@ async function suchenListe()
       jsonGND.hits.hits.splice(biggestVorkommenIndex, 1);
       biggestVorkommen = 0;
     }
-    paginateItemList();
+    
   }
 
   var z = parseInt(jsonGNDsorted.hits.hits.length) - 1;
@@ -173,10 +172,23 @@ async function suchenListe()
     }
     else
     {
+      const listItemAlterNameButton = document.createElement("li");
+      listItemAlterNameButton.classList.add('mdc-list-item');
+      listItemAlterNameButton.id = "expandButtonItem";
+      listItemAlterNameButton.insertAdjacentElement("afterbegin", expandButton);
+      listBeginning.insertAdjacentElement("afterbegin", listItemAlterNameButton);
+      expandButton.classList.add('mdc-fab--mini');
+      expandButton.classList.add('mdc-fab');
+
+      expandButton.insertAdjacentElement("afterbegin", expandButtonSpan);
+      expandButtonSpan.classList.add('material-icons');
+      expandButtonSpan.classList.add('mdc-fab__icon');
+      expandButton.classList.add("expandButton");
+      expandButton.style.visibility = "hidden";
+
       spanAlterName.innerHTML = variantNamesStringSemiColon;
       spanAlterName.variantNamesString = variantNamesStringSemiColon;
       spanAlterName.variantNames = variantNamesStringSemiColon;
-      listItemAlterName.style.width = "33.2%";
       expandButton.variantNamesString = variantNamesStringSemiColon;
       expandButton.variantNames = variantNamesStringSemiColon;
       expandButtonSpan.variantNamesString = variantNamesStringSemiColon;
@@ -238,4 +250,5 @@ async function suchenListe()
     z = z - 1;
     document.getElementById("rueckMeldung").innerHTML = "Liste ist aktuell.";
   }
+  paginateItemList();
 }

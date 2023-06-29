@@ -10,6 +10,6 @@ async function keyPressedOfficial()
   }
   else if(eingabe.length < 1)
   {
-    aktualisiereListe();
+    await aktualisiereListe();
   }  
 }
