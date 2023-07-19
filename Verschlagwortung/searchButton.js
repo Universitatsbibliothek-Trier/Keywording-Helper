@@ -221,7 +221,7 @@ async function suchenListe()
     const spanCopyLabel = document.createElement("span");
     copyButton.insertAdjacentElement("afterbegin", spanCopyLabel);
     spanCopyLabel.classList.add('mdc-button__label');
-    spanCopyLabel.innerHTML = "<img src=\"images/copy-xxl.png\" class=\"copyImage\" id=" + gndIDUri + ">";
+    spanCopyLabel.innerHTML = "<img src=\"images/copy-icon-original.svg\" class=\"copyImage\" id=" + gndIDUri + ">";
 
     const spanTouchCopy = document.createElement("span");
     copyButton.insertAdjacentElement("afterbegin", spanTouchCopy);
