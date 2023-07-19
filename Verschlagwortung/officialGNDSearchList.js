@@ -94,7 +94,7 @@ async function createOfficialGNDList(jsonGND)
     const spanCopyLabel = document.createElement("span");
     copyButton.insertAdjacentElement("afterbegin", spanCopyLabel);
     spanCopyLabel.classList.add('mdc-button__label');
-    spanCopyLabel.innerHTML = "<img src=\"images/copy-xxl.png\" class=\"copyImage\" id=" + jsonGND[z].id + ">";
+    spanCopyLabel.innerHTML = "<img src=\"images/copy-icon-original.svg\" class=\"copyImage\" id=" + jsonGND[z].id + ">";
 
     const spanTouchCopy = document.createElement("span");
     copyButton.insertAdjacentElement("afterbegin", spanTouchCopy);
