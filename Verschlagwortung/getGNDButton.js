@@ -3,6 +3,7 @@
 let header = "GND";
 let header_text =`${header}-Helferlein`;
 document.getElementById('headerText').innerHTML = header_text;
+document.getElementById("listColumn4spec").style.marginLeft = "0.0%";
 
 async function getNewGND()
 {
