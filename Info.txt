@@ -1,0 +1,11 @@
+Beschreibung des Programmes Keywording-Helper:
+
+Bei Keywording-Helper handelt es sich um eine Web-App, die HTML und CSS nutzt und die auf Java als Programmiersprache basiert. Die Web-Anwendung bietet die Möglichkeit GND-Entitäten im 
+Dateiformat JSON in einen Elasticsearch-Server einzutragen. Die Eintragungen können dabei entweder durch die Angabe der GND-URI oder über eine integrierte Suche über die lobid-API 
+(Schnittstelle zur GND vgl. https://lobid.org/gnd/api.) mit anschließender Auswahl des passenden Eintrages erfolgen. Auf der Webseite wird dann die Liste der eingetragenen (und bereits für die 
+Verschlagwortung verwendeten) GND-Entitäten mit zusätzlichen Spalten für weitere Informationen (Namensvarianten, GND-URI und Anzahl der verschlagworteten Entitäten) dargestellt. Es gibt zudem 
+die Möglichkeit die GND-URI der in der Liste vorhandenen Datensätze per Button zu kopieren, um diese anschließend in die XML-Datei einzufügen, sodass Fehler beim Kopiervorgang der Zeichenfolge 
+bzw. das Kopieren einer unvollständigen URI vermieden wird. Ebenso kann durch Buttons die Anzahl, die die Verwendung des jeweiligen GND-Eintrags anzeigt, erhöht oder verringert werden. Der 
+Keywording-Helper ordnet diese Liste dann nach ihrer Anzahl, sodass häufig genutzte Datensätze oben erscheinen und schnell in die XML-Datei übernommen werden können. Zugleich ermöglicht die 
+Web-App statistische Analysen zu den verwendeten GND-Entitäten. Auch dieses Tool wurde unter der GNU General Public License auf dem Github-Account der UB Trier veröffentlicht: https://github.
+com/Universitatsbibliothek-Trier/Keywording-Helper.
