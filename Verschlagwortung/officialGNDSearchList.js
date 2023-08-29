@@ -2,8 +2,9 @@
 
 async function createOfficialGNDList(jsonGND)
 {
+  console.log("jsongnd: " + JSON.stringify(jsonGND.member[0].id));
   document.getElementById("alternativeSpan").innerHTML = "Kategorie"
-  document.getElementById("listColumn3spec").style.marginRight = "-3.2%";
+  document.getElementById("listColumn4spec").style.marginLeft = "2.0%";
   document.getElementById("rueckMeldung").innerHTML = "Erstelle offizielle Liste mit GND-Einträgen..."
   let nodeList = document.getElementById("divList");
   if (nodeList.hasChildNodes())
@@ -18,14 +19,14 @@ async function createOfficialGNDList(jsonGND)
   listBeginning.classList.add('list');
   listBeginning.classList.add('my-image-list');
   listBeginning.classList.add('mdc-image-list');
-  let z = parseInt(jsonGND.length) - 1;
-  if (jsonGND.length == 0)
+  let z = parseInt(jsonGND.member.length) - 1;
+  if (jsonGND.member.length == 0)
   {
     document.getElementById("rueckMeldung").innerHTML = "Keine GND-Einträge gefunden."
   }
-  for (let x in jsonGND)
+  for (let x in jsonGND.member)
   {
-    let jsonGNDString = jsonGND[z].id;
+    let jsonGNDString = jsonGND.member[z].id;
     let jsonGNDIdPart = jsonGNDString.substring(22, jsonGNDString.length);
     let partGetURL = basicURL + "_search";
     const responseGet = await fetch(partGetURL,
@@ -60,20 +61,38 @@ async function createOfficialGNDList(jsonGND)
       localGNDExists = false;
       createButtonOfficial(listBeginning, "plus", jsonGNDIdPart);
     }
+
     const listVorkommen = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listVorkommen);
     listVorkommen.classList.add('mdc-list-item');
     listVorkommen.id = "listColumn4";
     const spanVorkommen = document.createElement("span");
     listVorkommen.appendChild(spanVorkommen);
-    const listItemAlterName = document.createElement("li");
 
+    const listItemAlterName = document.createElement("li");
     listItemAlterName.classList.add('mdc-list-item');
-    listItemAlterName.id = "listColumn3";
-    var spanAlterName = document.createElement("span");
+    listItemAlterName.id = "listColumn3official";
+    let spanAlterName = document.createElement("span");
     listItemAlterName.appendChild(spanAlterName);
-    var variantNames = jsonGND[z].category;
-    spanAlterName.innerHTML = variantNames;
+    let gndType = (jsonGND.member[z].type).toString();
+    gndType = gndType.replace(",AuthorityResource","");
+    gndType = gndType.replace("AuthorityResource,","");
+    let variantNames = gndType + "<br>" + jsonGND.member[z].biographicalOrHistoricalInformation;
+    if(jsonGND.member[z].biographicalOrHistoricalInformation == null)
+    {
+      if(jsonGND.member[z].broaderTermInstantial !=null)
+      {
+        spanAlterName.innerHTML = gndType + "<br>" + jsonGND.member[z].broaderTermInstantial[0].label;
+      }
+      else{
+        spanAlterName.innerHTML = gndType;
+      }
+
+    }
+    else{
+      spanAlterName.innerHTML = variantNames;
+    }
+    
     listBeginning.insertAdjacentElement("afterbegin", listItemAlterName);
 
     const listCopyButton = document.createElement("li");
@@ -94,12 +113,12 @@ async function createOfficialGNDList(jsonGND)
     const spanCopyLabel = document.createElement("span");
     copyButton.insertAdjacentElement("afterbegin", spanCopyLabel);
     spanCopyLabel.classList.add('mdc-button__label');
-    spanCopyLabel.innerHTML = "<img src=\"images/copy-icon-original.svg\" class=\"copyImage\" id=" + jsonGND[z].id + ">";
+    spanCopyLabel.innerHTML = "<img src=\"images/copy-icon-original.svg\" class=\"copyImage\" id=" + jsonGND.member[z].id + ">";
 
     const spanTouchCopy = document.createElement("span");
     copyButton.insertAdjacentElement("afterbegin", spanTouchCopy);
     spanTouchCopy.classList.add('mdc-button__touch');
-    spanTouchCopy.id = jsonGND[z].id;
+    spanTouchCopy.id = jsonGND.member[z].id;
 
     const divContainerRippleCopy = document.createElement("div");
     copyButton.insertAdjacentElement("afterbegin", divContainerRippleCopy);
@@ -111,7 +130,7 @@ async function createOfficialGNDList(jsonGND)
     listItemGND.id = "listColumn2";
     const spanGND = document.createElement("span");
     listItemGND.appendChild(spanGND);
-    spanGND.innerHTML = jsonGND[z].id;
+    spanGND.innerHTML = jsonGND.member[z].id;
 
     const listItemName = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listItemName);
@@ -119,7 +138,7 @@ async function createOfficialGNDList(jsonGND)
     listItemName.id = "listColumn1";
     const spanName = document.createElement("span");
     listItemName.appendChild(spanName);
-    spanName.innerHTML = jsonGND[z].label;
+    spanName.innerHTML = jsonGND.member[z].preferredName;
     z = z - 1;
     if ((jsonGNDLocal.hits.hits).length > 0)
     {

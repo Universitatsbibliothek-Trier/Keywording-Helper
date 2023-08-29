@@ -3,6 +3,7 @@ let jsonGND;
 let jsonGNDsorted;
 async function aktualisiereListe()
 {
+  document.getElementById("listColumn4spec").style.marginLeft = "0.0%";
   document.getElementById("listColumn3spec").style.marginRight = "0%";
   document.getElementById("alternativeSpan").innerHTML = "Alternative Name"
   document.getElementById("rueckMeldung").innerHTML = "aktualisiere Liste mit GND-Einträgen..."
