@@ -16,4 +16,4 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-   let basicURL= "https://adressToElasticSearchServer.de/yourindexname/";
+   let basicURL= "https://es01.bib55.uni-trier.de/gnd/";
