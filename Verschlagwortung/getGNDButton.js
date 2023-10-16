@@ -41,7 +41,7 @@ async function getGND()
       mode: 'cors',
       credentials: "include",
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( user + ':' + pass )  },
       body:  JSON.stringify( {    
       "query": {
         "bool": {
@@ -78,7 +78,7 @@ async function getGND()
        mode: 'cors',
        credentials: "include",
        method: 'POST',
-       headers: { 'Content-Type': 'application/json' },
+       headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( user + ':' + pass )  },
        body:  JSON.stringify( {
         jsonGND
       })
@@ -96,7 +96,7 @@ async function getGND()
        mode: 'cors',
        credentials: "include",
        method: 'POST',
-       headers: { 'Content-Type': 'application/json' },
+       headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( user + ':' + pass )  },
        body:  JSON.stringify( {
         jsonGND
       })

@@ -27,7 +27,7 @@ async function buttonPlusRaiseOfficial()
       mode: 'cors',
       credentials: "include",
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( user + ':' + pass )  },
      }
   );
   var jsonGNDResponse = await response.json();
@@ -48,7 +48,7 @@ async function buttonPlusRaiseOfficial()
       mode: 'cors',
       credentials: "include",
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( user + ':' + pass )  },
       body:  JSON.stringify( {
         jsonGND
      })
