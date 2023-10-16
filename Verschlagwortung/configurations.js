@@ -17,3 +17,5 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
    let basicURL= "https://es01.bib55.uni-trier.de/gnd/";
+   let user = "ackels";
+   let pass = "blkmgr";

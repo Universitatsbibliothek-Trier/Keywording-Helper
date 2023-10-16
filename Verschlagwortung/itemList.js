@@ -49,7 +49,7 @@ async function aktualisiereListe()
       mode: 'cors',
       credentials: "include",
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' }
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( user + ':' + pass )  },
     }
   );
   jsonGND = await response.json();

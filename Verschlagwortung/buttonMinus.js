@@ -26,7 +26,7 @@ async function buttonMinusRaise(buttonID)
       mode: 'cors',
       credentials: "include",
       method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( ackels + ':' + blkmgr ) },
      }
   );
   var jsonGNDResponse = await response.json();
@@ -48,7 +48,7 @@ async function buttonMinusRaise(buttonID)
         mode: 'cors',
         credentials: "include",
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( user + ':' + pass )  },
         body:  JSON.stringify( {
           jsonGND
        })
@@ -62,7 +62,7 @@ async function buttonMinusRaise(buttonID)
         mode: 'cors',
         credentials: "include",
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' } 
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( user + ':' + pass )  },
        }
     );
   }

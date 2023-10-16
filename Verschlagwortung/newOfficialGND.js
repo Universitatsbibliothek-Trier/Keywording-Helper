@@ -48,7 +48,7 @@ async function getGNDOfficial()
       mode: 'cors',
       credentials: "include",
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( user + ':' + pass )  },
       body: JSON.stringify({
         jsonGND
       })
