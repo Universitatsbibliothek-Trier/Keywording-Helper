@@ -26,7 +26,7 @@ async function buttonMinusRaise(buttonID)
       mode: 'cors',
       credentials: "include",
       method: 'GET',
-      headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( ackels + ':' + blkmgr ) },
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa( user + ':' + pass ) },
      }
   );
   var jsonGNDResponse = await response.json();
