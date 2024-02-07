@@ -13,7 +13,7 @@ along with this program.  If not, see http://www.gnu.org/licenses/.
 
 ## Hilfstool zu Verschlagwortung
 
-Diese Web App dient als Unterstützung der Verschlagwortung von Texten jedes Zeitalters. Eine Suche ist integriert, über die die offizielle `Gemeinsame Normdateien` (GND)-Datenbank der Deutschen Nationalbibliothek (DNB) abgefragt werden kann. Die gefundenen GNDs können in einer eigenen Liste gespeichert werden.\
+Diese Web-App dient als Unterstützung der Verschlagwortung von Texten jedes Zeitalters. Eine Suche ist integriert, über die die offizielle `Gemeinsame Normdateien` (GND)-Datenbank der Deutschen Nationalbibliothek (DNB) abgefragt werden kann. Die gefundenen GNDs können in einer eigenen Liste gespeichert werden.\
  Eine alternative Möglichkeit der Eintragung ist das Angeben der URI eines GND-Eintrages. Über die Anzeige der Liste der hinzugefügten GNDs kann die Anzahl erhöht oder verringert werden.\
   Das Kopieren der URI eines sich in der Liste befindlichen GND-Eintrages kann über einen `Copy`-Button erfolgen, um den Prozess des Verschlagwortens zu beschleunigen.\
   Ebenso ist ein Einfügen einer kopierten URI in ein Hinzufügenfeld möglich.
