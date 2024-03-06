@@ -29,6 +29,7 @@ async function getNewGND()
   await getGND();
   setTimeout(aktualisiereListe,1000);
 }
+//
 async function getGND()
 {
   document.getElementById("rueckMeldung").innerHTML = "Überprüfe, ob GND-Entität noch nicht existiert."
