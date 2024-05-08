@@ -56,13 +56,15 @@ async function suchenListe()
             "should":
               [
                 {
-                  "wildcard":
+                  "match_phrase_prefix":
+                  // "wildcard":
                   {
                     "jsonGND.preferredName": suchEingabe + "*"
                   }
                 },
                 {
-                  "wildcard":
+                  "match_phrase_prefix":
+                  // "wildcard":
                   {
                     "jsonGND.variantName": suchEingabe + "*"
                   }
