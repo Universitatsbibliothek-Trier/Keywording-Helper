@@ -49,7 +49,6 @@ async function createOfficialGNDList(jsonGND)
   for (let x in jsonGND.member)
   {
     let jsonGNDString = jsonGND.member[z].id;
-    console.log("jsongndstring: " + jsonGNDString);
     let jsonGNDIdPart = jsonGNDString.substring(22, jsonGNDString.length);
     let partGetURL = basicURL + "_search";
     const responseGet = await fetch(partGetURL,
@@ -217,21 +216,6 @@ async function createOfficialGNDList(jsonGND)
     let gndType = (jsonGND.member[z].type).toString();
     gndType = gndType.replace(",AuthorityResource","");
     gndType = gndType.replace("AuthorityResource,","");
-    // let categories = gndType + "<br>" + jsonGND.member[z].biographicalOrHistoricalInformation;
-    // if(jsonGND.member[z].biographicalOrHistoricalInformation == null)
-    // {
-    //   if(jsonGND.member[z].broaderTermInstantial !=null)
-    //   {
-    //     spanCategories.innerHTML = gndType + "<br>" + jsonGND.member[z].broaderTermInstantial[0].label;
-    //   }
-    //   else{
-    //     spanCategories.innerHTML = gndType;
-    //   }
-
-    // }
-    // else{
-    //   spanCategories.innerHTML = categories;
-    // }
     let categoryString = gndType;
     if(!(jsonGND.member[z].biographicalOrHistoricalInformation === undefined))
       {
