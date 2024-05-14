@@ -20,9 +20,13 @@
 
 async function createOfficialGNDList(jsonGND)
 {
-  console.log("jsongnd: " + JSON.stringify(jsonGND.member[0].id));
-  document.getElementById("alternativeSpan").innerHTML = "Kategorie"
+  document.getElementById("column2_span").innerHTML = "GND-ID URI";
+  document.getElementById("column3_span").innerHTML = "Kategorie";
   document.getElementById("listColumn4spec").style.marginLeft = "2.0%";
+  document.getElementById("listColumn1_5spec").style.width = "17.0%";
+  document.getElementById("listColumn2spec").style.width = "13.0%";
+  document.getElementById("listColumn3spec").style.width = "17.0%";
+  document.getElementById("rueckMeldung").innerHTML = "Erstelle offizielle Liste mit GND-Einträgen..."
   document.getElementById("rueckMeldung").innerHTML = "Erstelle offizielle Liste mit GND-Einträgen..."
   let nodeList = document.getElementById("divList");
   if (nodeList.hasChildNodes())
@@ -45,6 +49,7 @@ async function createOfficialGNDList(jsonGND)
   for (let x in jsonGND.member)
   {
     let jsonGNDString = jsonGND.member[z].id;
+    console.log("jsongndstring: " + jsonGNDString);
     let jsonGNDIdPart = jsonGNDString.substring(22, jsonGNDString.length);
     let partGetURL = basicURL + "_search";
     const responseGet = await fetch(partGetURL,
@@ -70,7 +75,7 @@ async function createOfficialGNDList(jsonGND)
     let localGNDExists = true;
     if ((jsonGNDLocal.hits.hits).length > 0)
     {
-      jsonGNDIdPart = jsonGNDLocal.hits.hits[0]._id;
+      jsonGNDIdPart = jsonGNDLocal.hits.hits[0].id;
       createButtonOfficial(listBeginning, "minus", jsonGNDIdPart, localGNDExists);
       createButtonOfficial(listBeginning, "plus", jsonGNDIdPart, localGNDExists);
     }
@@ -87,31 +92,169 @@ async function createOfficialGNDList(jsonGND)
     const spanVorkommen = document.createElement("span");
     listVorkommen.appendChild(spanVorkommen);
 
+
+
+
+
+
+
     const listItemAlterName = document.createElement("li");
     listItemAlterName.classList.add('mdc-list-item');
-    listItemAlterName.id = "listColumn3official";
-    let spanAlterName = document.createElement("span");
+    listItemAlterName.id = "listColumn3";
+    var spanAlterName = document.createElement("span");
+    spanAlterName.id = "span" + jsonGND.member[z].id;
     listItemAlterName.appendChild(spanAlterName);
+    var variantNames = jsonGND.member[z].variantName;
+    spanAlterName.clicked = "false";
+
+    var variantNamesStringSemiColon = "";
+    let x = 0;
+    if (!(variantNames === undefined))
+    {
+      for (; x < variantNames.length; x++)
+      {
+        if (x == 0)
+        {
+          variantNamesStringSemiColon = variantNamesStringSemiColon + variantNames[x];
+        }
+        else
+        {
+          variantNamesStringSemiColon = variantNamesStringSemiColon + "; " + variantNames[x]
+        }
+      }
+    }
+    spanAlterName.variantNamesAttr = variantNamesStringSemiColon;
+    var expandButton = document.createElement("button");
+    var expandButtonSpan = document.createElement("span");
+    var variantNamesString = "";
+    if (((!(variantNames === undefined))) && ((variantNames.toString()).length > 55))
+    {
+      let y = 0;
+      for (; y < variantNames.length; y++)
+      {
+        if (y == 0)
+        {
+          variantNamesString = variantNamesString + variantNames[y];
+        }
+        else
+        {
+          variantNamesString = variantNamesString + "; " + variantNames[y];
+        }
+        if (variantNamesString.length > 50 && (y < variantNames.length))
+        {
+          spanAlterName.innerHTML = variantNamesString;
+          const listItemAlterNameButton = document.createElement("li");
+          listItemAlterNameButton.classList.add('mdc-list-item');
+          listItemAlterNameButton.id = "expandButtonItem";
+          listItemAlterNameButton.insertAdjacentElement("afterbegin", expandButton);
+          listBeginning.insertAdjacentElement("afterbegin", listItemAlterNameButton);
+          expandButton.classList.add('mdc-fab--mini');
+          expandButton.classList.add('mdc-fab');
+          
+          expandButton.insertAdjacentElement("afterbegin", expandButtonSpan);
+          expandButtonSpan.classList.add('material-icons');
+          expandButtonSpan.classList.add('mdc-fab__icon');
+          expandButtonSpan.innerHTML = "add";
+          expandButton.classList.add("expandButton");
+          expandButton.id="es" + jsonGND.member[z].id;
+
+          spanAlterName.variantNamesString = variantNamesString;
+          expandButton.variantNamesString = variantNamesString;
+          expandButtonSpan.variantNamesString = variantNamesString;
+          spanAlterName.addEventListener("click", function () { showAllVariantNames() });
+          expandButtonSpan.addEventListener("click", function () { showAllVariantSpan() });
+          break;
+        }
+        else if ((variantNamesString.length > 50) && (y == variantNames.length - 1))
+        {
+          spanAlterName.innerHTML = variantNamesString;
+          break;
+        }
+        spanAlterName.innerHTML = variantNamesString;
+      }
+    }
+    else
+    {
+      const listItemAlterNameButton = document.createElement("li");
+      listItemAlterNameButton.classList.add('mdc-list-item');
+      listItemAlterNameButton.id = "expandButtonItem";
+      listItemAlterNameButton.insertAdjacentElement("afterbegin", expandButton);
+      listBeginning.insertAdjacentElement("afterbegin", listItemAlterNameButton);
+      expandButton.classList.add('mdc-fab--mini');
+      expandButton.classList.add('mdc-fab');
+
+      expandButton.insertAdjacentElement("afterbegin", expandButtonSpan);
+      expandButtonSpan.classList.add('material-icons');
+      expandButtonSpan.classList.add('mdc-fab__icon');
+      expandButton.classList.add("expandButton");
+      expandButton.style.visibility = "hidden";
+
+      spanAlterName.innerHTML = variantNamesStringSemiColon;
+      spanAlterName.variantNamesString = variantNamesStringSemiColon;
+      spanAlterName.variantNames = variantNamesStringSemiColon;
+      expandButton.variantNamesString = variantNamesStringSemiColon;
+      expandButton.variantNames = variantNamesStringSemiColon;
+      expandButtonSpan.variantNamesString = variantNamesStringSemiColon;
+      expandButtonSpan.variantNames = variantNamesStringSemiColon;
+    }
+    expandButton.clicked = "false";
+    expandButtonSpan.clicked = "false";
+    expandButton.classList.add("expandButton");
+    expandButtonSpan.classList.add("buttonSpan");
+    expandButtonSpan.id = "spanes" + jsonGND.member[z].id;
+    listBeginning.insertAdjacentElement("afterbegin", listItemAlterName);
+
+
+
+
+
+
+    const listItemKategorie = document.createElement("li");
+    listItemKategorie.classList.add('mdc-list-item');
+    listItemKategorie.id = "listColumn3official";
+    let spanCategories = document.createElement("span");
+    listItemKategorie.appendChild(spanCategories);
     let gndType = (jsonGND.member[z].type).toString();
     gndType = gndType.replace(",AuthorityResource","");
     gndType = gndType.replace("AuthorityResource,","");
-    let variantNames = gndType + "<br>" + jsonGND.member[z].biographicalOrHistoricalInformation;
-    if(jsonGND.member[z].biographicalOrHistoricalInformation == null)
-    {
-      if(jsonGND.member[z].broaderTermInstantial !=null)
+    // let categories = gndType + "<br>" + jsonGND.member[z].biographicalOrHistoricalInformation;
+    // if(jsonGND.member[z].biographicalOrHistoricalInformation == null)
+    // {
+    //   if(jsonGND.member[z].broaderTermInstantial !=null)
+    //   {
+    //     spanCategories.innerHTML = gndType + "<br>" + jsonGND.member[z].broaderTermInstantial[0].label;
+    //   }
+    //   else{
+    //     spanCategories.innerHTML = gndType;
+    //   }
+
+    // }
+    // else{
+    //   spanCategories.innerHTML = categories;
+    // }
+    let categoryString = gndType;
+    if(!(jsonGND.member[z].biographicalOrHistoricalInformation === undefined))
       {
-        spanAlterName.innerHTML = gndType + "<br>" + jsonGND.member[z].broaderTermInstantial[0].label;
+        categoryString = categoryString + "<br>" + jsonGND.member[z].biographicalOrHistoricalInformation;
       }
-      else{
-        spanAlterName.innerHTML = gndType;
+    if(!(jsonGND.member[z].broaderTermInstantial === undefined))
+      {
+        categoryString = categoryString + "<br>" + jsonGND.member[z].broaderTermInstantial[0].label;
+      }
+    if(!(jsonGND.member[z].broaderTermGeneric === undefined))
+      {
+        categoryString = categoryString +  "<br>" + jsonGND.member[z].broaderTermGeneric[0].label;
+      }
+    if(!(jsonGND.member[z].professionOrOccupation === undefined))
+      {
+        categoryString = categoryString +  "<br>" + jsonGND.member[z].professionOrOccupation[0].label;
       }
 
-    }
-    else{
-      spanAlterName.innerHTML = variantNames;
-    }
+      
+    categoryString = categoryString.replaceAll(",",", ");
+    spanCategories.innerHTML = categoryString;
     
-    listBeginning.insertAdjacentElement("afterbegin", listItemAlterName);
+    listBeginning.insertAdjacentElement("afterbegin", listItemKategorie);
 
     const listCopyButton = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listCopyButton);

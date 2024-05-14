@@ -21,7 +21,12 @@ let jsonGND;
 let jsonGNDsorted;
 async function aktualisiereListe()
 {
+  document.getElementById("column2_span").innerHTML = "Kategorie";
+  document.getElementById("column3_span").innerHTML = "GND-ID URI ";
   document.getElementById("listColumn4spec").style.marginLeft = "0.0%";
+  document.getElementById("listColumn1_5spec").style.width = "20.0%";
+  document.getElementById("listColumn2spec").style.width = "10.0%";
+  document.getElementById("listColumn3spec").style.width = "19.25%";
   document.getElementById("listColumn3spec").style.marginRight = "0%";
   document.getElementById("alternativeSpan").innerHTML = "Alternative Name"
   document.getElementById("rueckMeldung").innerHTML = "aktualisiere Liste mit GND-Einträgen..."
@@ -237,6 +242,36 @@ async function aktualisiereListe()
     const spanGND = document.createElement("span");
     listItemGND.appendChild(spanGND);
     spanGND.innerHTML = gndIDUri;
+
+    const listItemKategorie = document.createElement("li");
+    listBeginning.insertAdjacentElement("afterbegin", listItemKategorie);
+    listItemKategorie.classList.add('mdc-list-item');
+    listItemKategorie.id = "listColumn1_5";
+    const spanKategorie = document.createElement("span");
+    listItemKategorie.appendChild(spanKategorie);
+    let gndType = (jsonGNDsorted.hits.hits[z]._source.jsonGND.type).toString();
+    gndType = gndType.replace(",AuthorityResource","");
+    gndType = gndType.replace("AuthorityResource,","");
+    gndType = gndType.replace(",",", ");
+    let categoryString = gndType;
+    if(!(jsonGNDsorted.hits.hits[z]._source.jsonGND.biographicalOrHistoricalInformation === undefined))
+    {
+      categoryString = categoryString + "<br>" + jsonGNDsorted.hits.hits[z]._source.jsonGND.biographicalOrHistoricalInformation;
+    }
+    if(!(jsonGNDsorted.hits.hits[z]._source.jsonGND.broaderTermInstantial === undefined))
+    {
+      categoryString = categoryString + "<br>" + jsonGNDsorted.hits.hits[z]._source.jsonGND.broaderTermInstantial[0].label;
+    }
+    if(!(jsonGNDsorted.hits.hits[z]._source.jsonGND.broaderTermGeneric === undefined))
+    {
+      categoryString = categoryString +  "<br>" + jsonGNDsorted.hits.hits[z]._source.jsonGND.broaderTermGeneric[0].label;
+    }
+    if(!(jsonGNDsorted.hits.hits[z]._source.jsonGND.professionOrOccupation === undefined) && !(jsonGNDsorted.hits.hits[z]._source.jsonGND.professionOrOccupation[0] === undefined))
+    {
+      categoryString = categoryString +  "<br>" + jsonGNDsorted.hits.hits[z]._source.jsonGND.professionOrOccupation[0].label;
+    }
+    categoryString = categoryString.replaceAll(",",", ");
+    spanKategorie.innerHTML = categoryString;
 
     const listItemName = document.createElement("li");
     listBeginning.insertAdjacentElement("afterbegin", listItemName);

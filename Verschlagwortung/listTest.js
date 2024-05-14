@@ -19,7 +19,7 @@
 function paginateItemList()
 {
     var itemDivList = new List('divList', {
-        page: 400,
+        page: 450,
         pagination: {
         outerWindow: 20}
     });
