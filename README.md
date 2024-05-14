@@ -21,7 +21,7 @@ Diese Web-App dient als Unterstützung der Verschlagwortung von Texten jedes Zei
 ## Ausführung
 
 ### Voraussetzungen:
-Voraussetzungen für das Ausführen des Programmes sind ein Browser und ein Server mit ElasticSearch, der so konfiguriert wird, dass die Web-App mit ihm kommunizieren kann. Die URL des Servers muss in der `configuration.js`-Datei angegeben werden.
+Voraussetzungen für das Ausführen des Programmes sind ein Browser und ein Server mit ElasticSearch, der so konfiguriert wird, dass die Web-App mit ihm kommunizieren kann. Die URL des Servers muss in der `configurationsSafe.js`-Datei angegeben werden.
 Damit der Paste-Button funktioniert, müssen über den Browser in der Konfiguration (in Firefox: `about:config`) alle Variablen, die das Wort `Clipboard` enthalten auf true gesetzt werden.
 ### Starten:
 Das Starten der App erfolgt über das Öffnen der Datei `ESClient.html` mit einem Browser. 
